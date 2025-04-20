@@ -1,0 +1,451 @@
+/* --- Global Resets & Font --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.7;
+    color: #333;
+    background-color: #fdfaf6; /* Warm off-white */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+    margin-bottom: 0.8em;
+    color: #4a2c2a; /* Deep brown */
+}
+
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    color: #a0522d; /* Sienna */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #8b4513; /* Darker Sienna */
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- Layout & Cards --- */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger animations */
+#cookie-selection-section { animation-delay: 0.1s; }
+#recipe-display-section { animation-delay: 0.2s; }
+.conclusion { animation-delay: 0.3s; }
+
+
+main {
+    padding: 40px 20px;
+    max-width: 960px; /* Control max width */
+    margin: 40px auto 0 auto; /* Add space below header */
+}
+
+/* --- Header --- */
+.immersive-header {
+    min-height: 85vh; /* Make it tall */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #fdfaf6 0%, #f4e9dd 100%); /* Subtle gradient */
+    padding: 40px 20px;
+    position: relative; /* For comparison image positioning */
+}
+
+.immersive-header h1 {
+    color: #6b4f4b; /* Slightly softer brown */
+    margin-bottom: 0.3em;
+    font-weight: 700;
+}
+
+.immersive-header p {
+    font-size: 1.2rem;
+    color: #5c4033; /* Muted brown */
+    max-width: 600px;
+    margin-bottom: 2em;
+}
+
+.header-comparison-image {
+    max-width: 80%;
+    width: 500px; /* Adjust as needed */
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --- Toggles --- */
+.toggle-container {
+    position: fixed; /* Keep them accessible */
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.toggle-container button {
+    background-color: #fff;
+    color: #4a2c2a;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.toggle-container button:hover {
+    background-color: #f4e9dd;
+    border-color: #ccc;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* --- Input Section --- */
+.input-section h2, .selection-section h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center input group */
+    gap: 10px;
+    margin-bottom: 20px; /* Space below input */
+}
+
+#butter-amount {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 120px; /* Adjust width */
+    text-align: right;
+    transition: border-color 0.3s ease;
+}
+#butter-amount:focus {
+    outline: none;
+    border-color: #a0522d;
+}
+
+#butter-unit {
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#start-experiment-btn {
+    display: block; /* Make it block to center */
+    margin: 25px auto 0 auto; /* Center button */
+    padding: 12px 30px;
+    background-color: #a0522d;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(160, 82, 45, 0.3);
+}
+
+#start-experiment-btn:hover {
+    background-color: #8b4513;
+    transform: translateY(-2px);
+}
+
+.warning {
+    color: #d9534f; /* Red warning color */
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+/* --- Cookie Selection Section --- */
+.cookie-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.cookie-option {
+    text-align: center;
+    padding: 25px;
+    border: 2px solid transparent; /* For outline effect */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fdfdfd; /* Slightly off-white */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cookie-option img {
+    width: 180px; /* Control image size */
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+    transition: transform 0.3s ease;
+    border: 3px solid #f4e9dd; /* Subtle border */
+}
+
+.cookie-option h3 {
+    margin-bottom: 0.5em;
+    color: #8b4513;
+}
+.cookie-option p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.cookie-option:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border-color: #e0c9b6; /* Subtle hover border */
+}
+.cookie-option:hover img {
+     transform: scale(1.05) rotate(3deg);
+}
+
+
+.cookie-option.selected {
+    border-color: #a0522d; /* Strong outline for selected */
+    background-color: #fff;
+    box-shadow: 0 10px 25px rgba(160, 82, 45, 0.2);
+    transform: translateY(-2px) scale(1.01); /* Slight lift */
+}
+.cookie-option.selected img {
+    border-color: #a0522d;
+}
+
+/* --- Recipe Display Section --- */
+.recipe-section h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #a0522d;
+}
+
+.recipe-yield {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.ingredient-list ul, .recipe-steps ol {
+    list-style-position: outside;
+    padding-left: 25px; /* Indent list */
+    margin-bottom: 25px;
+}
+
+.ingredient-list li, .recipe-steps li {
+    margin-bottom: 0.8em;
+}
+
+.ingredient-list strong { /* Ingredient amount */
+    display: inline-block;
+    min-width: 100px; /* Align amounts */
+    margin-right: 10px;
+    font-weight: 600;
+}
+.ingredient-list .unit-g, .ingredient-list .unit-cups {
+    font-size: 0.9em;
+    color: #666;
+    margin-left: 5px;
+}
+
+.recipe-steps li {
+    line-height: 1.8;
+}
+
+.recipe-steps strong { /* Highlight key actions */
+    font-weight: 700;
+    color: #4a2c2a;
+}
+
+/* --- Pro Tips & Notes Styling --- */
+.pro-tip {
+    background-color: #fffbeb; /* Creamy yellow */
+    padding: 20px 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border-left: 5px solid #f0ad4e; /* Amber border */
+    box-shadow: 0 4px 10px rgba(240, 173, 78, 0.15);
+    position: relative; /* For potential future pseudo-elements */
+    font-size: 0.95rem;
+}
+
+/* Alternative Note style */
+.note {
+    background-color: #f4f8ff; /* Light blueish */
+    border-left-color: #5bc0de; /* Info blue */
+    box-shadow: 0 4px 10px rgba(91, 192, 222, 0.15);
+    margin-top: 30px;
+}
+
+.pro-tip h4, .note h4 {
+    font-family: 'Caveat', cursive; /* Cursive font for titles */
+    font-size: 1.6rem;
+    color: #c18c42; /* Darker amber */
+    margin-bottom: 0.6em;
+    border-bottom: 1px dashed #e0c9b6;
+    padding-bottom: 5px;
+}
+.note h4 {
+    color: #31708f; /* Darker blue */
+    border-bottom-color: #a6d8e9;
+}
+
+.pro-tip p, .note p {
+    margin-bottom: 0.8em;
+    line-height: 1.6;
+}
+.pro-tip code, .note code {
+    background-color: #e9ecef;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* --- Easter Egg Styling --- */
+.easter-egg {
+    background: linear-gradient(135deg, #e0f2f1, #b2dfdb); /* Teal gradient */
+    border: 2px dashed #00796b; /* Dark teal */
+    margin-top: 40px;
+}
+.easter-egg h2 {
+    text-align: center;
+    color: #004d40; /* Very dark teal */
+    font-weight: 700;
+}
+.stuffed-image {
+    max-width: 300px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 77, 64, 0.2);
+}
+.easter-egg .pro-tip { /* Nested tip */
+    background-color: #fff;
+    border-left-color: #f57c00; /* Orange for emphasis */
+}
+.easter-egg .pro-tip h4 {
+    color: #e65100; /* Dark orange */
+    border-bottom-color: #ffcc80;
+}
+
+
+/* --- Conclusion & Footer --- */
+.conclusion {
+    text-align: center;
+    background: linear-gradient(to bottom, #fdfaf6, #fff);
+}
+.conclusion h2 { color: #388e3c; } /* Green for success! */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #777;
+    border-top: 1px solid #eee;
+}
+
+
+/* --- RTL Support --- */
+html[dir="rtl"] {
+    /* Add RTL specific styles */
+    body { font-family: 'Tajawal', sans-serif; /* Example Arabic font */ } /* You'll need to import Tajawal or another font */
+
+    .toggle-container {
+        left: 15px;
+        right: auto;
+    }
+
+    #butter-amount { text-align: left; }
+
+    .ingredient-list ul, .recipe-steps ol {
+        padding-left: 0;
+        padding-right: 25px; /* Indent from right */
+    }
+     .ingredient-list strong {
+        margin-left: 10px; /* Space after amount */
+        margin-right: 0;
+    }
+
+    .pro-tip, .note {
+        border-left: none;
+        border-right: 5px solid #f0ad4e; /* Border on the right */
+    }
+    .note { border-right-color: #5bc0de; }
+
+    .easter-egg { border-left: none; border-right: 2px dashed #00796b; }
+
+    /* You might need more specific RTL adjustments */
+}
+
+/* --- Media Queries (Basic Example) --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.7rem; }
+    .card { padding: 20px; }
+    .immersive-header { min-height: 60vh; }
+    .header-comparison-image { max-width: 90%; width: 350px; }
+    .cookie-options { grid-template-columns: 1fr; } /* Stack on smaller screens */
+    .input-group { flex-direction: column; gap: 15px; }
+    #butter-amount { width: 100%; text-align: center; }
+    #butter-unit { width: 100%; }
+}
