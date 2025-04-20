@@ -9,246 +9,237 @@ html {
     scroll-behavior: smooth;
 }
 
-/* --- CSS Variables for Unique Style --- */
+/* --- CSS Variables for Unique Cookie Vibe Style --- */
 :root {
-    --bg-color: #fdfaf6; /* Keep warm off-white base */
-    --text-color: #1a1a1a; /* Darker text for contrast */
-    --primary-brown: #6b4f4b; /* Muted brown */
-    --accent-brown: #a0522d; /* Sienna */
+    --bg-color: #fff9ec; /* Light, cookie-dough color */
+    --text-color: #332c27; /* Rich, chocolatey brown */
+    --primary-brown: #a0522d; /* Sienna, like baked edges */
+    --accent-brown: #f4a460; /* Sandy brown, for highlights */
     --dark-brown: #4a2c2a; /* Deep brown for headings */
-    --border-color: #1a1a1a; /* Black borders */
-    --shadow-color: #1a1a1a; /* Black hard shadows */
-    --highlight-bg: #fffbeb; /* Creamy yellow note bg */
-    --highlight-border: #f0ad4e; /* Amber note border */
-    --secondary-highlight-bg: #e0f2f1; /* Teal easter egg bg */
-    --secondary-highlight-border: #00796b; /* Dark teal border */
-    --action-color: #2962ff; /* Bright blue for action buttons/links */
-    --action-hover-color: #0039cb;
-    --warning-color: #d9534f; /* Red for warnings */
+    --border-color: #795548; /* Coffee-colored border */
+    --shadow-color: rgba(0, 0, 0, 0.2); /* Softer shadow */
+    --highlight-bg: #ffeb3b; /* Bright yellow for a sprinkle feel */
+    --highlight-border: #fbc02d; /* Darker yellow highlight border */
+    --secondary-highlight-bg: #f0f4c3; /* Light lime for variety */
+    --secondary-highlight-border: #cddc39; /* Lime border */
+    --action-color: #ff9800; /* Vibrant orange, like caramel */
+    --action-hover-color: #f57c00;
+    --warning-color: #ff5722; /* Tomato red */
 
-    --border-width: 3px;
-    --shadow-offset: 6px;
-    --border-radius-sharp: 8px; /* Sharper radius */
-    --border-radius-soft: 15px;
+    --border-width: 2px;
+    --shadow-offset: 5px;
+    --border-radius-sharp: 6px;
+    --border-radius-soft: 12px; /* Softer curves */
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.7;
+    font-family: 'Nunito', sans-serif; /* Playful, rounded font */
+    line-height: 1.8;
     color: var(--text-color);
     background-color: var(--bg-color);
     overflow-x: hidden;
-    /* Optional: Subtle noise background */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"); */
+    /* Subtle background texture */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='%23fdf0d5' opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h20v20H0V0zm1 1h18v18H1V1zm10.97 1.03a7 7 0 100 9.9 7 7 0 000-9.9zm-8.8 8.8a5 5 0 100-7.07 5 5 0 000 7.07z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4 {
-    font-weight: 700; /* Bolder headings */
-    margin-bottom: 0.8em;
+    font-family: 'Caveat', cursive; /* Whimsical, handwritten font for headings */
+    font-weight: 700;
+    margin-bottom: 0.7em;
     color: var(--dark-brown);
-    letter-spacing: 0.5px; /* Slight spacing */
+    letter-spacing: 0.8px;
+    text-shadow: 1px 1px var(--shadow-color); /* Subtle text shadow */
 }
 
-h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); text-transform: uppercase;}
-h2 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.3rem; font-weight: 600; }
-
+h1 { font-size: clamp(3rem, 7vw, 4.5rem); text-transform: capitalize;}
+h2 { font-size: clamp(2rem, 5vw, 3rem); }
+h3 { font-size: 1.8rem; }
+h4 { font-size: 1.4rem; font-weight: 600; }
 
 p {
-    margin-bottom: 1.2em; /* More space after paragraphs */
+    font-size: 1.1rem;
+    margin-bottom: 1.4em;
     max-width: 65ch;
 }
 
 a {
-    color: var(--action-color); /* Use action color for links */
-    text-decoration: underline;
-    text-decoration-thickness: 2px; /* Thicker underline */
-    text-underline-offset: 3px; /* Space underline */
+    color: var(--action-color);
+    text-decoration: none; /* Remove default underline */
     font-weight: 600;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 a:hover {
-    color: var(--bg-color); /* White text on hover */
-    background-color: var(--action-hover-color); /* Darker blue background */
-    text-decoration: none; /* Remove underline on hover */
+    color: var(--action-hover-color);
+    text-shadow: 1px 1px var(--shadow-color), 2px 2px var(--shadow-color);
+    text-decoration: underline dotted var(--action-hover-color); /* Dotted underline on hover */
 }
 
 img {
     max-width: 100%;
     height: auto;
     display: block;
-    border-radius: var(--border-radius-sharp); /* Sharp radius for images */
+    border-radius: var(--border-radius-soft); /* Softer image corners */
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
 }
 
-/* --- Unique Border & Shadow Styles --- */
+/* --- Unique Border & Shadow Styles (Softer) --- */
 .hard-border {
     border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-soft);
 }
 
 .hard-shadow {
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transition for interactions */
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .interactive-shadow:hover,
 .interactive-shadow:focus-visible {
-    transform: translate(-2px, -2px);
-    box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0px var(--shadow-color);
+    transform: translate(-3px, -3px);
+    box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) var(--shadow-color);
 }
 /* Custom Focus Visible */
 *:focus-visible {
-    outline: 3px dashed var(--action-color);
-    outline-offset: 3px;
+    outline: 2px dashed var(--action-color);
+    outline-offset: 4px;
 }
 /* Remove default outline if using custom */
 *:focus {
     outline: none;
 }
 
-/* --- Toggles (With Unique Style) --- */
-.toggle-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 100;
-    display: flex;
-    gap: 12px;
-}
-
+/* --- Toggles (With Cookie Style) --- */
 .toggle-container button {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border: var(--border-width) solid var(--border-color);
-    padding: 8px 18px;
-    border-radius: var(--border-radius-sharp);
+    background-color: var(--accent-brown); /* Sandy brown button */
+    color: var(--bg-color); /* Light text */
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-soft);
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 700; /* Bold toggle text */
+    font-size: 0.95rem;
+    font-weight: 700;
     text-transform: uppercase;
-    box-shadow: 4px 4px 0px var(--shadow-color); /* Smaller shadow for toggles */
-    transition: all 0.2s ease;
+    box-shadow: 3px 3px var(--shadow-color);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .toggle-container button:hover {
-    background-color: var(--highlight-bg); /* Use note bg for hover */
-    transform: translate(-1px, -1px);
-    box-shadow: 5px 5px 0px var(--shadow-color);
+    background-color: var(--primary-brown); /* Darker brown on hover */
+    transform: translateY(-2px);
+    box-shadow: 4px 4px var(--shadow-color);
 }
 
 .toggle-container button:active {
-     transform: translate(1px, 1px);
-     box-shadow: 2px 2px 0px var(--shadow-color);
+     transform: translateY(1px);
+     box-shadow: 2px 2px var(--shadow-color);
 }
 
 
-/* --- Immersive Header (Adapted) --- */
+/* --- Immersive Header (Adapted for Full-Page Images) --- */
 .immersive-header {
-    min-height: 100vh;
+    min-height: 97vh; /* Almost full viewport height */
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* Use a solid color or a very subtle gradient */
-    background-color: #f4e9dd; /* Slightly warmer beige */
-    padding: 80px 20px 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Responsive columns for images */
+    gap: 10px;
+    padding: 30px 15px; /* Adjust padding */
     position: relative;
     overflow: hidden;
-    border-bottom: var(--border-width) solid var(--border-color); /* Add border */
+    border-bottom: var(--border-width) solid var(--border-color);
+    align-items: center; /* Vertically align items in the grid */
+    background-color: var(--bg-color); /* Consistent background */
 }
 
 .header-content {
-    margin-bottom: 3vh;
-    max-width: 750px;
+    grid-column: 1 / -1; /* Span across all image columns */
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    margin-bottom: 20px; /* Space above the images */
+    max-width: 850px;
     z-index: 10;
     position: relative;
 }
 
 .immersive-header h1 {
     color: var(--dark-brown);
-    margin-bottom: 0.4em;
-    /* Optional: Add stroke for more emphasis */
-    /* -webkit-text-stroke: 1px var(--border-color); */
-    /* text-stroke: 1px var(--border-color); */
+    margin-bottom: 0.6em;
+    text-shadow: 2px 2px var(--shadow-color);
 }
 
 .immersive-header p {
-    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: var(--primary-brown);
-    max-width: 55ch;
+    max-width: 60ch;
     margin-left: auto;
     margin-right: auto;
-    font-weight: 500; /* Slightly bolder subtitle */
+    font-weight: 500;
 }
 
 .header-comparison-image {
     display: block;
-    max-width: 85%;
-    width: auto;
-    max-height: 55vh;
-    object-fit: contain;
-    margin-top: 2vh;
-    border-radius: var(--border-radius-soft); /* Softer radius for main image */
-    border: var(--border-width) solid var(--border-color); /* Add border */
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color); /* Add shadow */
-    background-color: var(--bg-color); /* Add bg color behind transparent parts */
-    padding: 5px; /* Space between border and image */
-    z-index: 5;
+    width: 100%;
+    height: 450px; /* Slightly taller images */
+    object-fit: cover;
+    margin-top: 0;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    transition: transform 0.4s ease-in-out;
+}
+
+.header-comparison-image:hover {
+    transform: scale(1.05);
+    box-shadow: calc(var(--shadow-offset) + 5px) calc(var(--shadow-offset) + 5px) var(--shadow-color);
 }
 
 /* --- Scroll Down Arrow (Adapted) --- */
 .scroll-down-link {
     position: absolute;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     color: var(--accent-brown);
-    font-size: 2rem; /* Larger arrow */
+    font-size: 2.5rem; /* Even larger arrow */
     z-index: 20;
-    opacity: 0.8;
+    opacity: 0.7;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    animation: bounce 2s infinite ease-in-out;
-}
-/* Remove default link styling */
-.scroll-down-link, .scroll-down-link:hover {
-    background-color: transparent;
-    text-decoration: none;
+    animation: bounce 2.5s infinite ease-in-out; /* Slightly slower bounce */
 }
 .scroll-down-link:hover {
     opacity: 1;
-    transform: translateX(-50%) translateY(5px);
+    transform: translateX(-50%) translateY(8px);
     color: var(--dark-brown);
 }
-@keyframes bounce { /* Keep bounce */
+
+@keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-10px); }
-    60% { transform: translateX(-50%) translateY(-5px); }
+    40% { transform: translateX(-50%) translateY(-15px); }
+    60% { transform: translateX(-50%) translateY(-8px); }
 }
 
 
 /* --- Main Content Area --- */
 main {
-    padding: 60px 20px 40px 20px;
-    max-width: 960px;
+    padding: 50px 20px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 /* --- Card Styling (Unique) --- */
 .card {
-    background-color: var(--bg-color);
-    padding: 35px 45px; /* Slightly more padding */
-    margin-bottom: 40px;
-    border-radius: var(--border-radius-sharp);
-    border: var(--border-width) solid var(--border-color);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
+    background-color: #fff; /* White cards for better contrast */
+    padding: 40px 50px;
+    margin-bottom: 50px;
+    border-radius: var(--border-radius-soft);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
     opacity: 0;
-    transform: translateY(30px); /* Start further down */
-    animation: fadeInUp 0.5s ease-out forwards; /* Faster animation */
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
 }
+
 @keyframes fadeInUp {
     to { opacity: 1; transform: translateY(0); }
 }
@@ -256,7 +247,7 @@ main {
 /* --- Input Section (Unique) --- */
 .input-section h2, .selection-section h2 {
     text-align: center;
-    margin-bottom: 1.5em;
+    margin-bottom: 1.2em;
 }
 
 .input-group {
@@ -264,118 +255,124 @@ main {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 25px;
+    gap: 18px;
+    margin-bottom: 30px;
 }
 
 #butter-amount, #butter-unit {
-    padding: 14px 18px; /* More padding */
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius-sharp);
-    font-size: 1.1rem; /* Larger font */
-    background-color: #fff; /* White input bg */
+    padding: 16px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-soft);
+    font-size: 1.15rem;
+    background-color: #fff;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05); /* Subtle inset shadow */
+    box-shadow: inset 2px 2px rgba(0,0,0,0.05);
 }
+
 #butter-amount {
-    width: 160px;
+    width: 180px;
     text-align: right;
     flex-grow: 1;
-    min-width: 120px;
+    min-width: 130px;
 }
+
 #butter-unit {
     cursor: pointer;
     flex-shrink: 0;
     font-weight: 600;
 }
+
 #butter-amount:focus, #butter-unit:focus {
     border-color: var(--action-color);
-    box-shadow: inset 2px 2px 0px rgba(0,0,0,0.05), 0 0 0 3px var(--action-color);
+    box-shadow: inset 2px 2px rgba(0,0,0,0.05), 0 0 0 3px var(--action-color);
 }
 
 /* --- Main Action Button (Unique) --- */
 #start-experiment-btn {
     display: block;
-    margin: 30px auto 0 auto;
-    padding: 15px 40px;
+    margin: 35px auto 0 auto;
+    padding: 18px 45px;
     background-color: var(--action-color);
-    color: var(--bg-color); /* Light text on button */
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius-sharp);
-    font-size: 1.2rem; /* Bigger text */
+    color: var(--bg-color);
+    border: none;
+    border-radius: var(--border-radius-soft);
+    font-size: 1.3rem;
     font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
-    transition: all 0.2s ease;
+    letter-spacing: 1.2px;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #start-experiment-btn:hover {
     background-color: var(--action-hover-color);
-    transform: translate(-2px, -2px);
-    box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0px var(--shadow-color);
+    transform: translateY(-2px);
+    box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) var(--shadow-color);
 }
+
 #start-experiment-btn:active {
-    transform: translate(var(--shadow-offset) / 2, var(--shadow-offset) / 2);
-    box-shadow: calc(var(--shadow-offset) / 2) calc(var(--shadow-offset) / 2) 0px var(--shadow-color);
+    transform: translateY(1px);
+    box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) var(--shadow-color);
 }
 
 
 .warning {
     color: var(--warning-color);
-    font-size: 1rem; /* Slightly larger warning */
+    font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
-    margin-top: 15px;
-    border: 2px dashed var(--warning-color); /* Dashed border */
-    padding: 8px;
-    border-radius: var(--border-radius-sharp);
-    background-color: rgba(217, 83, 79, 0.05); /* Light red bg */
+    margin-top: 20px;
+    border: 2px dashed var(--warning-color);
+    padding: 10px;
+    border-radius: var(--border-radius-soft);
+    background-color: rgba(255, 87, 34, 0.1);
 }
 
 
 /* --- Cookie Selection Section (Unique) --- */
 .cookie-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 35px; /* More gap */
-    margin-top: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 30px;
 }
 
 .cookie-option {
     text-align: center;
-    padding: 30px;
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius-sharp);
+    padding: 35px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-soft);
     cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: var(--bg-color);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .cookie-option img {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
-    border-radius: 50%; /* Keep cookie images round */
-    margin: 0 auto 25px auto;
-    border: var(--border-width) solid var(--border-color);
-    transition: transform 0.3s ease;
-    padding: 5px; /* Padding inside border */
-    background-color: #fff; /* White bg behind image */
+    border-radius: 50%;
+    margin: 0 auto 30px auto;
+    border: 2px solid var(--border-color);
+    transition: transform 0.4s ease-in-out;
+    box-shadow: 3px 3px var(--shadow-color);
+    background-color: var(--bg-color); /* Background to show transparency if image supports it */
+    padding: 8px;
 }
 
 .cookie-option h3 {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.6em;
     color: var(--dark-brown);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
+
 .cookie-option p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--primary-brown);
     margin-bottom: 0;
     flex-grow: 1;
@@ -383,125 +380,136 @@ main {
 }
 
 .cookie-option:hover {
-    transform: translate(-3px, -3px) rotate(-1deg); /* Slight tilt */
-    box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) 0px var(--shadow-color);
-    background-color: var(--highlight-bg); /* Highlight on hover */
+    transform: translateY(-5px);
+    box-shadow: calc(var(--shadow-offset) + 5px) calc(var(--shadow-offset) + 5px) var(--shadow-color);
+    background-color: #f8bbd0; /* Pinkish highlight on hover */
 }
+
 .cookie-option:hover img {
-     transform: scale(1.03) rotate(4deg); /* More rotation */
+     transform: scale(1.08);
+     box-shadow: 5px 5px var(--shadow-color);
 }
 
 .cookie-option.selected {
-    border-color: var(--action-color); /* Use action color for selected border */
-    background-color: var(--bg-color);
-    transform: translate(2px, 2px); /* Slight indent when selected */
-    box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) 0px var(--action-color); /* Use action color shadow */
+    border-color: var(--action-color);
+    background-color: #ffe0b2; /* Light orange for selected */
+    transform: translateY(2px);
+    box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) var(--shadow-color);
 }
+
 .cookie-option.selected img {
     border-color: var(--action-color);
+    box-shadow: 2px 2px var(--shadow-color);
 }
 
 /* --- Recipe Display Section (Adapted) --- */
 .recipe-section h2 { /* Recipe Title */
     text-align: center;
-    margin-bottom: 1em;
+    margin-bottom: 1.2em;
     color: var(--accent-brown);
+    text-shadow: 1px 1px var(--shadow-color);
 }
+
 .recipe-yield {
     text-align: center;
-    font-style: normal; /* Less italic */
+    font-style: italic;
     color: var(--primary-brown);
-    margin-bottom: 35px;
+    margin-bottom: 40px;
     font-size: 1.2rem;
-    font-weight: 600; /* Bolder yield */
+    font-weight: 600;
 }
 
 .ingredients-title, .prep-tech-title, .steps-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--dark-brown);
-    margin-top: 1.8em;
-    margin-bottom: 1.2em;
-    padding-bottom: 0.4em;
-    border-bottom: var(--border-width) solid var(--border-color); /* Solid border */
+    margin-top: 2em;
+    margin-bottom: 1.4em;
+    padding-bottom: 0.5em;
+    border-bottom: 2px dashed var(--border-color);
 }
 
 .ingredient-list ul, .recipe-steps ol {
     list-style-position: outside;
-    padding-left: 30px;
-    margin-bottom: 35px;
+    padding-left: 35px;
+    margin-bottom: 40px;
 }
+
 .ingredient-list li, .recipe-steps li {
-    margin-bottom: 1em;
+    margin-bottom: 1.2em;
+    font-size: 1.1rem;
 }
 
 .ingredient-list strong { /* Amount */
     display: inline-block;
-    min-width: 120px;
-    margin-right: 15px;
-    font-weight: 700; /* Bold amount */
+    min-width: 130px;
+    margin-right: 18px;
+    font-weight: 700;
     color: var(--text-color);
 }
+
 .ingredient-list .unit-g, .ingredient-list .unit-cups {
-    font-size: 0.9em;
-    color: var(--primary-brown); /* Muted brown units */
-    margin-left: 5px;
+    font-size: 0.95em;
+    color: var(--primary-brown);
+    margin-left: 6px;
     display: inline-block;
 }
-.ingredient-list .unit-cups::before, .ingredient-list .unit-cups::after { content: ""; } /* Remove brackets */
+
+.ingredient-list .unit-cups::before, .ingredient-list .unit-cups::after { content: " ("; }
+.ingredient-list .unit-cups::after { content: ")"; }
 
 
 .recipe-steps li {
-    line-height: 1.9; /* More line height */
+    line-height: 2;
 }
+
 .recipe-steps li::marker {
-    font-weight: 700; /* Bold step numbers */
+    font-weight: 700;
     color: var(--accent-brown);
-    font-size: 1.1em; /* Slightly larger marker */
+    font-size: 1.2em;
 }
+
 .recipe-steps strong { /* Highlight key actions */
     font-weight: 700;
-    background-color: var(--highlight-bg); /* Highlight bg */
-    padding: 0.1em 0.3em;
-    border-radius: 4px;
-    color: var(--text-color); /* Black text on highlight */
+    background-color: var(--highlight-bg);
+    padding: 0.2em 0.4em;
+    border-radius: var(--border-radius-soft);
+    color: var(--text-color);
     border: 1px solid var(--highlight-border);
 }
 
 /* --- Pro Tips & Notes (Unique) --- */
 .pro-tip, .note {
-    background-color: var(--highlight-bg);
-    padding: 25px 30px;
-    border-radius: var(--border-radius-sharp);
-    margin: 35px 0;
-    border: var(--border-width) solid var(--border-color); /* Regular border */
-    border-left: 8px solid var(--highlight-border); /* Thick colored left border */
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1); /* Softer shadow for notes */
+    background-color: #fff;
+    padding: 30px 35px;
+    border-radius: var(--border-radius-soft);
+    margin: 40px 0;
+    border: 1px solid var(--border-color);
+    border-left: 10px solid var(--highlight-border);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
     position: relative;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .note {
-    background-color: var(--secondary-highlight-bg); /* Teal bg for general notes */
-    border-left-color: var(--secondary-highlight-border); /* Teal border */
+    background-color: #e0f7fa; /* Light cyan for other notes */
+    border-left-color: var(--secondary-highlight-border);
 }
 
 .pro-tip h4, .note h4 {
-    font-family: 'Poppins', sans-serif; /* Revert to main font maybe? */
-    font-weight: 700; /* Bold */
-    font-size: 1.5rem;
-    color: var(--text-color); /* Black title */
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--text-color);
     margin-top: 0;
-    margin-bottom: 0.8em;
-    border-bottom: 2px dashed var(--primary-brown); /* Dashed underline */
-    padding-bottom: 8px;
-    text-transform: uppercase; /* Uppercase titles */
-    letter-spacing: 1px;
+    margin-bottom: 1em;
+    border-bottom: 2px dashed var(--primary-brown);
+    padding-bottom: 10px;
+    letter-spacing: 1.5px;
 }
-/* Keep Caveat for the pistachio/choco recommendation if desired */
+
 #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 {
      font-family: 'Caveat', cursive;
-     font-size: 1.8rem;
-     text-transform: none;
+     font-size: 2rem;
      letter-spacing: normal;
      color: var(--dark-brown);
      border-bottom-style: solid;
@@ -513,156 +521,174 @@ main {
 
 
 .pro-tip p, .note p {
-    margin-bottom: 0.8em;
-    line-height: 1.7;
-}
-.pro-tip code, .note code { /* Style code blocks */
-    background-color: rgba(0,0,0,0.08);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.95em;
-    color: var(--text-color);
-    border: 1px solid rgba(0,0,0,0.1);
-}
-.pro-tip p + p, .note p + p {
-    margin-top: 1em;
+    margin-bottom: 1em;
+    line-height: 1.9;
 }
 
 /* --- Easter Egg (Unique) --- */
 .easter-egg {
     background: repeating-linear-gradient(
         45deg,
-        var(--secondary-highlight-bg),
-        var(--secondary-highlight-bg) 10px,
-        #c8e6c9 10px, /* Light green */
-        #c8e6c9 20px /* Light green */
-    ); /* Diagonal stripes */
-    border: var(--border-width) solid var(--border-color);
-    margin-top: 45px;
-    padding: 40px;
+        #fffde7,
+        #fffde7 15px,
+        #e1bee7 15px,
+        #e1bee7 30px
+    ); /* Light yellow and light purple stripes */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-soft);
+    margin-top: 50px;
+    padding: 45px;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
 }
+
 .easter-egg h2 {
     text-align: center;
-    color: var(--secondary-highlight-border); /* Dark teal */
+    color: var(--accent-brown);
     font-weight: 700;
-    background-color: var(--bg-color); /* White bg behind text */
-    padding: 10px 20px;
-    display: inline-block; /* Fit background to text */
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius-sharp);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
-}
-.stuffed-image {
-    max-width: 300px;
-    margin: 30px auto;
-    border-radius: var(--border-radius-sharp);
-    border: var(--border-width) solid var(--border-color);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--shadow-color);
-    padding: 8px;
-    background-color: #fff;
-}
-.easter-egg .pro-tip { /* Nested tip style */
     background-color: var(--bg-color);
-    border-left-color: var(--action-color); /* Blue border for nested tip */
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(41, 98, 255, 0.2); /* Blue shadow */
+    padding: 12px 25px;
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-soft);
+    box-shadow: 3px 3px var(--shadow-color);
 }
+
+.stuffed-image {
+    max-width: 400px; /* Larger stuffed cookie */
+    margin: 35px auto;
+    border-radius: var(--border-radius-soft);
+    border: none; /* No border for a cleaner look */
+    box-shadow: 5px 5px var(--shadow-color);
+    padding: 0; /* No padding */
+    background-color: transparent; /* Make background transparent */
+}
+
+.easter-egg .pro-tip {
+    background-color: #fff;
+    border-left-color: var(--action-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) rgba(255, 152, 0, 0.3);
+}
+
 .easter-egg .pro-tip h4 {
     color: var(--action-color);
     border-bottom-color: var(--action-color);
 }
 
-
 /* --- Conclusion & Footer (Unique) --- */
 .conclusion {
     text-align: center;
-    background-color: #e8f5e9; /* Light green success bg */
-    border-top: var(--border-width) solid var(--border-color);
-    border-bottom: var(--border-width) solid var(--border-color);
-    padding-top: 40px;
-    padding-bottom: 40px;
-}
-.conclusion h2 {
-    color: #2e7d32; /* Darker Green */
-    text-transform: uppercase;
-}
-.conclusion p { max-width: 60ch; margin-left: auto; margin-right: auto; font-weight: 500; }
-.conclusion strong { font-weight: 700; }
-.conclusion a { /* Style conclusion link */
-    color: var(--bg-color);
-    background-color: #2e7d32;
-    padding: 2px 6px;
-    border-radius: 4px;
-    text-decoration: none;
-    border: 1px solid #1b5e20;
-}
-.conclusion a:hover {
-    background-color: #1b5e20;
+    background-color: #f1f8e9; /* Light green */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-top: 45px;
+    padding-bottom: 45px;
 }
 
+.conclusion h2 {
+    color: var(--action-color);
+    text-transform: uppercase;
+    text-shadow: 1px 1px var(--shadow-color);
+}
+
+.conclusion p { max-width: 70ch; margin-left: auto; margin-right: auto; font-weight: 500; font-size: 1.1rem;}
+.conclusion strong { font-weight: 700; }
+.conclusion a {
+    color: var(--bg-color);
+    background-color: var(--action-color);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-soft);
+    text-decoration: none;
+    box-shadow: 2px 2px var(--shadow-color);
+    transition: background-color 0.3s ease;
+}
+
+.conclusion a:hover {
+    background-color: var(--action-hover-color);
+}
 
 footer {
     text-align: center;
-    padding: 35px;
-    margin-top: 0; /* No margin needed after conclusion */
-    font-size: 1rem; /* Larger footer text */
+    padding: 40px;
+    margin-top: 0;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--primary-brown);
-    background-color: #f4e9dd; /* Match header bg */
-    border-top: var(--border-width) solid var(--border-color);
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--border-color);
 }
-
 
 /* --- RTL Support --- */
 html[dir="rtl"] {
-    /* Specific RTL adjustments if needed */
     body {
-        /* Consider specific Arabic font */
+        font-family: 'Almarai', sans-serif; /* Example Arabic font */
     }
-
     .toggle-container { left: 20px; right: auto; }
     #butter-amount { text-align: left; }
-    .ingredient-list ul, .recipe-steps ol { padding-left: 0; padding-right: 30px; }
-    .ingredient-list strong { margin-left: 15px; margin-right: 0; }
-    .ingredient-list .unit-g, .ingredient-list .unit-cups { margin-left: 0; margin-right: 5px; }
-
-    .pro-tip, .note { border-left: var(--border-width) solid var(--border-color); border-right: 8px solid var(--highlight-border); }
+    .ingredient-list ul, .recipe-steps ol { padding-left: 0; padding-right: 35px; }
+    .ingredient-list strong { margin-left: 18px; margin-right: 0; }
+    .ingredient-list .unit-g, .ingredient-list .unit-cups { margin-left: 0; margin-right: 6px; }
+    .pro-tip, .note { border-left: 1px solid var(--border-color); border-right: 10px solid var(--highlight-border); }
     .note { border-right-color: var(--secondary-highlight-border); }
-    .easter-egg .pro-tip { border-left: var(--border-width) solid var(--border-color); border-right-color: var(--action-color); }
-
-    .recipe-steps li::marker { /* Ensure markers stay right */ }
+    .easter-egg .pro-tip { border-left: 1px solid var(--border-color); border-right-color: var(--action-color); }
+    .recipe-steps li::marker { /* Adjust marker position if needed */ }
 }
 
-/* --- Media Queries (Adjust for Unique Style) --- */
+/* --- Media Queries --- */
+@media (max-width: 980px) {
+    .immersive-header {
+        grid-template-columns: 1fr 1fr; /* Two columns on smaller screens */
+        min-height: auto; /* Adjust height */
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+    .header-comparison-image {
+        height: 350px;
+    }
+}
+
 @media (max-width: 768px) {
     :root {
-        --border-width: 2px;
-        --shadow-offset: 4px;
+        --border-width: 1px;
+        --shadow-offset: 3px;
+        --border-radius-sharp: 4px;
+        --border-radius-soft: 10px;
     }
-    .card { padding: 25px 20px; margin-bottom: 30px; }
-    main { padding: 40px 15px 30px 15px; }
-    .immersive-header { padding: 60px 15px 30px 15px; }
-    .header-comparison-image { max-height: 45vh; }
-    h1 { font-size: clamp(2rem, 7vw, 2.8rem); }
-    h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
-
-    .cookie-options { grid-template-columns: 1fr; gap: 25px; }
-    .cookie-option img { width: 150px; height: 150px;}
-
-    #start-experiment-btn { padding: 12px 30px; font-size: 1.1rem;}
-    .toggle-container button { padding: 6px 14px; font-size: 0.85rem; box-shadow: 3px 3px 0px var(--shadow-color);}
-    .toggle-container button:hover { box-shadow: 4px 4px 0px var(--shadow-color);}
-    .toggle-container button:active { box-shadow: 1px 1px 0px var(--shadow-color);}
-
-    .pro-tip, .note { padding: 20px 25px; }
-    .pro-tip h4, .note h4 { font-size: 1.3rem; }
-    #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 { font-size: 1.6rem; }
+    .card { padding: 30px 35px; margin-bottom: 40px; }
+    main { padding: 40px 15px; }
+    .immersive-header {
+        grid-template-columns: 1fr; /* Single column for smaller screens */
+        text-align: center;
+        min-height: auto;
+    }
+    .header-content {
+        margin-bottom: 30px;
+    }
+    .header-comparison-image {
+        height: 300px;
+    }
+    h1 { font-size: clamp(2.5rem, 7vw, 3.5rem); }
+    h2 { font-size: clamp(1.8rem, 5.5vw, 2.6rem); }
+    .cookie-options { grid-template-columns: 1fr; gap: 30px; }
+    .cookie-option img { width: 160px; height: 160px;}
+    #start-experiment-btn { padding: 15px 35px; font-size: 1.2rem;}
+    .toggle-container button { padding: 8px 16px; font-size: 0.9rem; box-shadow: 2px 2px var(--shadow-color);}
+    .toggle-container button:hover { box-shadow: 3px 3px var(--shadow-color);}
+    .toggle-container button:active { box-shadow: 1px 1px var(--shadow-color);}
+    .pro-tip, .note { padding: 25px 30px; font-size: 1rem;}
+    .pro-tip h4, .note h4 { font-size: 1.5rem; }
+    #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 { font-size: 1.8rem; }
+    .scroll-down-link { font-size: 2rem; bottom: 15px; }
 }
 
 @media (max-width: 480px) {
-    .card { padding: 20px 15px; }
-    .header-comparison-image { max-height: 40vh; padding: 3px;}
-    .cookie-option img { width: 120px; height: 120px; padding: 3px;}
-    .ingredient-list strong { min-width: 90px; margin-right: 8px; }
-    html[dir="rtl"] .ingredient-list strong { margin-left: 8px; margin-right: 0;}
-    footer { padding: 25px; font-size: 0.9rem;}
+    .card { padding: 20px 25px; }
+    .header-comparison-image { height: 250px; border-radius: var(--border-radius-sharp);}
+    .cookie-option img { width: 130px; height: 130px; border-radius: var(--border-radius-sharp);}
+    .ingredient-list strong { min-width: 100px; margin-right: 10px; }
+    html[dir="rtl"] .ingredient-list strong { margin-left: 10px; margin-right: 0;}
+    footer { padding: 30px; font-size: 0.95rem;}
+    h1 { font-size: clamp(2rem, 8vw, 3rem); }
+    h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+    .input-group { flex-direction: column; align-items: stretch; }
+    #butter-amount, #butter-unit { width: auto; }
 }
