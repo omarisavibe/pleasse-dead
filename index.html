@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brown Butter Cookies: The Ultimate Vibe Check</title> <!-- Changed Title -->
+    <title>Brown Butter Cookies: The Ultimate Vibe Check</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
-    <!-- Optional: Keep Font Awesome if using icons -->
+    <!-- Font Awesome for icons (like scroll arrow) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -17,54 +17,52 @@
 
     <header class="immersive-header">
         <div class="header-content">
-             <!-- Updated H1 and P -->
              <h1 data-en="Brown Butter Cookies: The Ultimate Vibe Check" data-ar="خلاصة كوكيز الزبدة البنية العلمية">Brown Butter Cookies: The Ultimate Vibe Check</h1>
-             <p data-en="POV: You're Nailing the Cookie Game (Classic, Thicc, Crispy Aestethics)" data-ar="رحلة علمية إلى عوالم الكلاسيك، السميكة، والمقرمشة">POV: You're Nailing the Cookie Game (Classic, Thicc, Crispy Aestethics)</p>
+             <p data-en="POV: You're Nailing the Cookie Game (Classic, Thicc, Crispy Aestethics)" data-ar="رحلة علمية إلى عوالم الكلاسيك، الضخمة، والمقرمشة">POV: You're Nailing the Cookie Game (Classic, Thicc, Crispy Aestethics)</p>
         </div>
         <img src="3-cookie-types.jpg" alt="Comparison of Thin & Crispy, Classic, and Thick & Gooey Cookies" class="header-comparison-image">
         <a href="#butter-input-section" class="scroll-down-link" aria-label="Scroll down">
-            <i class="fas fa-chevron-down"></i> <!-- Assuming Font Awesome is used -->
+            <i class="fas fa-chevron-down"></i> <!-- Font Awesome icon -->
         </a>
     </header>
 
     <main>
         <section id="butter-input-section" class="input-section card">
-             <!-- Updated H2 and P -->
-            <h2 data-en="Step 1: The Butter Sitrep (Spill the Deets)" data-ar="الخطوة الأولى: تحديد متغير الزبدة">Step 1: The Butter Sitrep (Spill the Deets)</h2>
-            <p data-en="Alright, real science needs real measurements. How much unsalted butter we talkin' for this glow-up?" data-ar="كل التجارب العظيمة تبدأ بقياسات دقيقة. كم جرام أو كوب من الزبدة (غير المملحة) ستخصص لهذا الهدف النبيل؟">Alright, real science needs real measurements. How much unsalted butter we talkin' for this glow-up?</p>
+             <!-- UPDATED H2 and P -->
+            <h2 data-en="Step 1: Butter Check (What's the Scoop?)" data-ar="الخطوة الأولى: قياس الزبدة (كم الكمية؟)">Step 1: Butter Check (What's the Scoop?)</h2>
+            <p data-en="Alright, real science needs real measurements. How much unsalted butter we talkin' for this cookie quest?" data-ar="كل التجارب العظيمة تبدأ بقياسات دقيقة. كم جرام أو كوب من الزبدة (غير المملحة) ستستخدم في مهمة الكوكيز هذه؟">Alright, real science needs real measurements. How much unsalted butter we talkin' for this cookie quest?</p>
             <div class="input-group">
-                <input type="number" id="butter-amount" min="100" step="any" placeholder="like, 226?"> <!-- Updated Placeholder -->
+                <input type="number" id="butter-amount" min="100" step="any" placeholder="e.g., 226"> <!-- Simplified Placeholder -->
                 <select id="butter-unit">
                     <option value="grams" data-en="grams" data-ar="جرام">grams</option>
                     <option value="cups" data-en="cups" data-ar="كوب">cups</option>
                 </select>
             </div>
-             <!-- Updated Warning -->
-            <p id="butter-warning" class="warning" data-en="Bruh, enter a real amount (100g+ or like 1/2 cup min)." data-ar="من فضلك أدخل كمية زبدة صالحة (على الأقل 100 جرام أو حوالي نصف كوب)." style="display: none;">Bruh, enter a real amount (100g+ or like 1/2 cup min).</p>
-             <!-- Updated Button -->
+             <p id="butter-warning" class="warning" data-en="Yo, enter a valid amount (at least 100g or ~1/2 cup)." data-ar="لو سمحت، أدخل كمية زبدة صالحة (100 جرام أو نصف كوب على الأقل)." style="display: none;">Yo, enter a valid amount (at least 100g or ~1/2 cup).</p>
             <button id="start-experiment-btn" data-en="Let's Bake! 🔥" data-ar="ابدأ التجربة!">Let's Bake! 🔥</button>
         </section>
 
         <section id="cookie-selection-section" class="selection-section card" style="display: none;">
-             <!-- Updated H2 and P -->
-             <h2 data-en="Step 2: Choose Your Fighter (Cookie Edition)" data-ar="الخطوة الثانية: اختر النمط الظاهري للكوكيز">Step 2: Choose Your Fighter (Cookie Edition)</h2>
-             <p data-en="What's the vibe? Pick your endgame texture:" data-ar="اختر النتيجة الملمسية التي ترغب في استكشافها:">What's the vibe? Pick your endgame texture:</p>
+             <h2 data-en="Step 2: Choose Your Fighter (Cookie Edition)" data-ar="الخطوة الثانية: اختر شكل الكوكيز النهائي">Step 2: Choose Your Fighter (Cookie Edition)</h2>
+             <p data-en="What's the final form? Pick your cookie destiny:" data-ar="ما هو الشكل النهائي الذي تطمح إليه؟ اختر مصير الكوكيز الخاص بك:">What's the final form? Pick your cookie destiny:</p>
             <div class="cookie-options">
-                 <!-- Updated Titles and Descriptions -->
+                 <!-- UPDATED Titles and Descriptions -->
                 <div class="cookie-option" data-cookie-type="thin">
                     <img src="thin-and-crispy.webp" alt="Thin & Crispy Cookie">
-                    <h3 data-en="Crispy Bois (Max Snap)" data-ar="رقاقة مقرمشة ورقيقة">Crispy Bois (Max Snap)</h3>
-                    <p data-en="Delicate, major crunch, spreads for days." data-ar="رقيقة، مقرمشة، أقصى انتشار.">Delicate, major crunch, spreads for days.</p>
+                    <!-- UPDATED H3 -->
+                    <h3 data-en="The Crispy Crew (Maximum Snap)" data-ar="فريق القرمشة (أقصى هشاشة)">The Crispy Crew (Maximum Snap)</h3>
+                    <p data-en="Delicate, major crunch, spreads like whoa." data-ar="رقيقة، مقرمشة للغاية، تنتشر بشكل واسع.">Delicate, major crunch, spreads like whoa.</p>
                 </div>
                 <div class="cookie-option" data-cookie-type="classic">
                     <img src="classic.webp" alt="Classic Cookie">
-                    <h3 data-en="The OG Vibe (Balanced)" data-ar="عينة كلاسيكية متوازنة">The OG Vibe (Balanced)</h3>
-                    <p data-en="Chewy middle, crispy edges. Crowd fave, no cap." data-ar="مركز طري، أطراف مقرمشة. المفضلة للجماهير.">Chewy middle, crispy edges. Crowd fave, no cap.</p>
+                    <h3 data-en="The OG Vibe (Balanced)" data-ar="الكلاسيكية المتوازنة">The OG Vibe (Balanced)</h3>
+                    <p data-en="Chewy middle, crispy edges. The people's choice." data-ar="مركز طري، أطراف مقرمشة. اختيار الجماهير.">Chewy middle, crispy edges. The people's choice.</p>
                 </div>
                 <div class="cookie-option" data-cookie-type="thick">
                     <img src="thick-and-gooey.webp" alt="Thick & Gooey Cookie">
-                    <h3 data-en="THICC & Gooey Kings" data-ar="وحش سميك ولزج">THICC & Gooey Kings</h3>
-                    <p data-en="Soft, mega decadent, barely spreads. Pure comfort." data-ar="طرية، فاخرة، أقل انتشار. متعة خالصة.">Soft, mega decadent, barely spreads. Pure comfort.</p>
+                     <!-- UPDATED H3 -->
+                    <h3 data-en="Absolute Units (Thick & Gooey)" data-ar="وحدات مطلقة (سميكة ولزجة)">Absolute Units (Thick & Gooey)</h3>
+                    <p data-en="Soft, mega decadent, barely spreads. Pure comfort." data-ar="طرية، فاخرة جداً، بالكاد تنتشر. متعة خالصة.">Soft, mega decadent, barely spreads. Pure comfort.</p>
                 </div>
             </div>
         </section>
@@ -72,49 +70,53 @@
         <section id="recipe-display-section" class="recipe-section" style="display: none;">
             <div id="recipe-content" class="card">
                 <!-- Dynamic recipe details appear here -->
+                <!-- 
+                  NOTE FOR script.js: 
+                  1. Modify recipe generation to show EGG COUNT (e.g., "2 large eggs") instead of weight/volume. 
+                     Update your recipe data objects to store egg count directly. Example output:
+                     <li><strong>Eggs:</strong> 2 <span class="unit-notes">(large)</span></li>
+                  2. Adjust the YIELD calculation logic. It needs to be more accurate. 
+                     For "Absolute Units" (Thick), 200-230g butter should yield approx. 12-18 cookies depending on size (50-70g dough each is common for thick). 
+                     Classic might yield 18-24. Crispy might yield 24-30+. Refine these estimates in your JS data.
+                  3. Consider renaming the generated recipe title for Thick cookies to something like "Recipe: Absolute Unit Edition".
+                -->
             </div>
 
             <div id="stuffed-easter-egg" class="easter-egg card" style="display: none;">
-                 <!-- Updated Easter Egg Text -->
                  <h2 data-en="✨ SECRET LEVEL UNLOCKED! ✨" data-ar="تم فتح مستوى سري!">✨ SECRET LEVEL UNLOCKED! ✨</h2>
-                 <p data-en="Okay, Legend! Peeped the Thicc path? You get BONUS CONTENT: Stuff 'em!" data-ar="مبروك يا أسطورة! اختيارك للمسار السميك واللزج يكشف عن إمكانات فائقة. يمكنك حشو هذه الوحوش!">Okay, Legend! Peeped the Thicc path? You get BONUS CONTENT: Stuff 'em!</p>
+                 <p data-en="Okay, Legend! Chose the Absolute Unit path? BONUS ROUND: Stuff 'em!" data-ar="تمام يا أسطورة! اخترت مسار الوحدات المطلقة؟ جولة إضافية: احشيها!">Okay, Legend! Chose the Absolute Unit path? BONUS ROUND: Stuff 'em!</p>
                  <img src="stuffed-cookie.webp" alt="Stuffed Cookies" class="stuffed-image">
-                 <p data-en="How? Flatten dough, make a dent, drop in ~1 tsp Nutella/Pistachio spread (IYKYK), wrap, seal, bake. Might need 1-2 extra mins. Easy." data-ar="إزاي؟ افرد كرة العجين قليلاً، اعمل فجوة، أضف حوالي ملعقة صغيرة نوتيلا أو زبدة فستق، لف العجين حولها، اقفلها كويس، واخبزها حسب التوجيهات (يمكن تحتاج دقيقة أو دقيقتين زيادة).">How? Flatten dough, make a dent, drop in ~1 tsp Nutella/Pistachio spread (IYKYK), wrap, seal, bake. Might need 1-2 extra mins. Easy.</p>
+                 <p data-en="How? Flatten dough ball, make a dent, drop in ~1 tsp Nutella/Pistachio spread (ASM is king!), wrap, seal, bake. Might need 1-2 extra mins. You got this." data-ar="إزاي؟ افرد كرة العجين، اعمل فجوة، حط حوالي معلقة صغيرة نوتيلا أو زبدة فستق (ASM بتفوز!)، لف العجين حولها، اقفلها كويس، اخبزها. ممكن تحتاج دقيقة أو اتنين زيادة. سهلة.">How? Flatten dough ball, make a dent, drop in ~1 tsp Nutella/Pistachio spread (ASM is king!), wrap, seal, bake. Might need 1-2 extra mins. You got this.</p>
                  <div class="pro-tip note">
-                    <!-- Updated Pistachio Rec -->
-                    <h4 data-en="Pistachio Spread Hot Take:" data-ar="توصية فستق احترافية:">Pistachio Spread Hot Take:</h4>
-                    <p data-en="Fr tho, ditch the watery pistachio stuff. You want that LIQUID GOLD flavor? 'ASM Foods Pistachio Cream' is IT. Seriously addictive." data-ar="انسى الأنواع اللي طعمها خفيف أو مزيت! عشان طعم الفستق المركز الرهيب اللي كأنك بتاكل فستق سايح، أنا برشح بشدة 'كريمة الفستق من ASM Foods'. خطييييرة بجد.">Fr tho, ditch the watery pistachio stuff. You want that LIQUID GOLD flavor? 'ASM Foods Pistachio Cream' is IT. Seriously addictive.</p>
-                    <a href="https://www.amazon.eg/-/en/Pistachio-Irresistible-Luxurious-Goodness-Asmcup/dp/B0D97536DB" target="_blank" data-en="Cop it Here (Egypt Link)" data-ar="شوفها هنا (رابط مصر)">Cop it Here (Egypt Link)</a>
+                    <h4 data-en="Pistachio Spread Hot Take:" data-ar="رأي صريح عن زبدة الفستق:">Pistachio Spread Hot Take:</h4>
+                    <p data-en="Fr tho, skip the weak pistachio stuff. You want that LIQUID GOLD flavor? 'ASM Foods Pistachio Cream' is the one. Legit game changer." data-ar="بجد، سيبك من الأنواع الخفيفة. عايز الطعم الدهبي السايل ده؟ 'كريمة الفستق من ASM Foods' هي الحل. بتغير اللعبة بجد.">Fr tho, skip the weak pistachio stuff. You want that LIQUID GOLD flavor? 'ASM Foods Pistachio Cream' is the one. Legit game changer.</p>
+                    <a href="https://www.amazon.eg/-/en/Pistachio-Irresistible-Luxurious-Goodness-Asmcup/dp/B0D97536DB" target="_blank" data-en="Get it Here (Egypt Link)" data-ar="هاتها من هنا (رابط مصر)">Get it Here (Egypt Link)</a>
                  </div>
             </div>
 
              <div class="pro-tip note general-pro-tip" id="chocolate-recommendation" style="display: none;">
-                 <!-- Updated Choco Rec -->
-                <h4 data-en="Choco Chip Deep Dive 🧐" data-ar="علم حبيبات الشوكولاتة:">Choco Chip Deep Dive 🧐</h4>
-                <p data-en="Real talk: not all chips hit the same. For that melty, nostalgic vibe (iykyk, but better #BoycottFriendly), hunt down 'Target Kualety Dropsy' MILK Choc. It's the secret sauce, lowkey." data-ar="مش كل الشوكليت شيبس زي بعض! عشان الطعم الدايب اللي بيفكرك بالأنواع الحلوة (زي جلاكسي وديري ميلك، بس أحسن عشان #مقاطعة)، دور على شوكولاتة 'Target Kualety Dropsy' باللبن (MILK). ده السلاح السري الحلو.">Real talk: not all chips hit the same. For that melty, nostalgic vibe (iykyk, but better #BoycottFriendly), hunt down 'Target Kualety Dropsy' MILK Choc. It's the secret sauce, lowkey.</p>
-                <a href="https://www.facebook.com/SweetartPortsaid/posts/-%D8%B4%D9%8A%D9%83%D9%88%D9%84%D8%A7%D8%AA%D8%A9-%D9%83%D9%88%D8%A7%D9%84%D8%AA%D9%8A-%D8%AA%D8%A7%D8%B1%D8%AC%D8%AA-%D8%A3%D8%B3%D8%A7%D8%B3-%D8%A7%D9%84%D8%A5%D8%A8%D8%AF%D8%A7%D8%B9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AD%D9%84%D9%88%D9%8A%D8%A7%D8%AA-%D9%85%D8%B9-%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9-%D8%A7%D9%84%D8%B4%D9%8A%D9%83%D9%88%D9%84%D8%A7%D8%AA%D8%A9-%D8%A7%D9%84%D8%AE%D8%A7%D9%85-%D9%85%D9%86-%D9%83%D9%88/997132649121767/" target="_blank" data-en="Find a supplier (FB Link)" data-ar="ممكن تلاقيها عند موردين زي دول (رابط فيسبوك)">Find a supplier (FB Link)</a>
-                 <!-- Updated Choco Tip -->
-                <p data-en="MAKE SURE it's the MILK one for max deliciousness, trust." data-ar="اتأكد إنها النسخة اللي باللبن (MILK) عشان أقصى لذاذة!">MAKE SURE it's the MILK one for max deliciousness, trust.</p>
+                <h4 data-en="Choco Chip Deep Dive 🧐" data-ar="غوص في عالم حبيبات الشوكولاتة:">Choco Chip Deep Dive 🧐</h4>
+                <p data-en="Real talk: not all chips are created equal. For peak melty goodness (iykyk vibes, but make it #BoycottFriendly), track down 'Target Kualety Dropsy' MILK Choc. Trust the process." data-ar="كلام واقعي: مش كل الشوكليت شيبس زي بعض. عشان توصل لأحلى طعم دايب (لو فاهم قصدي، بس بنكهة #مقاطعة_ودية)، دور على شوكولاتة 'Target Kualety Dropsy' باللبن (MILK). ثق في العملية.">Real talk: not all chips are created equal. For peak melty goodness (iykyk vibes, but make it #BoycottFriendly), track down 'Target Kualety Dropsy' MILK Choc. Trust the process.</p>
+                <a href="https://www.facebook.com/SweetartPortsaid/posts/-%D8%B4%D9%8A%D9%83%D9%88%D9%84%D8%A7%D8%AA%D8%A9-%D9%83%D9%88%D8%A7%D9%84%D8%AA%D9%8A-%D8%AA%D8%A7%D8%B1%D8%AC%D8%AA-%D8%A3%D8%B3%D8%A7%D8%B3-%D8%A7%D9%84%D8%A5%D8%A8%D8%AF%D8%A7%D8%B9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AD%D9%84%D9%88%D9%8A%D8%A7%D8%AA-%D9%85%D8%B9-%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9-%D8%A7%D9%84%D8%B4%D9%8A%D9%83%D9%88%D9%84%D8%A7%D8%AA%D8%A9-%D8%A7%D9%84%D8%AE%D8%A7%D9%85-%D9%85%D9%86-%D9%83%D9%88/997132649121767/" target="_blank" data-en="Find a supplier (FB Link)" data-ar="ابحث عن مورد (رابط فيسبوك)">Find a supplier (FB Link)</a>
+                <p data-en="MAKE SURE it's the MILK one for max deliciousness. Vital info." data-ar="تأكد إنها اللي باللبن (MILK) عشان أقصى لذاذة. معلومة حيوية.">MAKE SURE it's the MILK one for max deliciousness. Vital info.</p>
             </div>
 
             <section class="conclusion card">
-                 <!-- Updated Conclusion -->
-                <h2 data-en="Mission Accomplished! (You Ate 💅)" data-ar="التجربة اكتملت!">Mission Accomplished! (You Ate 💅)</h2>
-                <p data-en="Hypothesis: Brown butter slaps. Confirmed. Did you document the deliciousness? Flex on the 'gram!" data-ar="تم تأكيد الفرضية: كوكيز الزبدة البنية متفوقة. لو وثقت نتائجك اللذيذة، شارك الأدلة!">Hypothesis: Brown butter slaps. Confirmed. Did you document the deliciousness? Flex on the 'gram!</p>
+                 <h2 data-en="Mission Accomplished! (You Ate 💅)" data-ar="المهمة تمت بنجاح!">Mission Accomplished! (You Ate 💅)</h2>
+                <p data-en="Hypothesis: Brown butter slaps. Confirmed. You baked, you saw, you conquered. Document the W!" data-ar="الفرضية: الزبدة البنية رهيبة. تأكدت. خبزت، رأيت، انتصرت. وثّق الفوز!">Hypothesis: Brown butter slaps. Confirmed. You baked, you saw, you conquered. Document the W!</p>
                 <p>
-                    <strong data-en="Tag me! ->" data-ar="اعمل لي تاج على انستجرام:">Tag me! -></strong>
+                    <strong data-en="Tag me! ->" data-ar="اعمل لي تاج! ->">Tag me! -></strong>
                     <a href="https://www.instagram.com/omarisavibe/" target="_blank">@omarisavibe</a>
                 </p>
-                <p data-en="Go forth and bake like the main character you are." data-ar="انطلق واخبز علمياً!">Go forth and bake like the main character you are.</p>
+                <p data-en="Go forth and bake like the main character you are." data-ar="انطلق واخبز كأنك البطل الرئيسي.">Go forth and bake like the main character you are.</p>
             </section>
         </section>
     </main>
 
     <footer>
-         <!-- Updated Footer -->
-        <p data-en="Built w/ science, butter & good vibes ✨" data-ar="صُنِع بالعلم، الزبدة، وشوية كود.">Built w/ science, butter & good vibes ✨</p>
+        <p data-en="Built w/ science, butter & good vibes ✨" data-ar="صُنع بالعلم والزبدة والطاقة الإيجابية ✨">Built w/ science, butter & good vibes ✨</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js"></script> <!-- Ensure you have script.js linked -->
 </body>
 </html>
