@@ -136,21 +136,21 @@ document.addEventListener('DOMContentLoaded', () => {
             stepsTitle: 'Let’s Bake, Bestie! 👩‍🍳',
             proTipsTitle: 'Pro Tips from Your Cookie Sensei 🧠',
             // Ingredient Names
-            unsaltedButter: 'Unsalted Butter (aka the star of the show) 🧈',
-            granulatedSugar: 'Granulated Sugar (sweetness level: high) 🍬',
-            lightBrownSugar: 'Light Brown Sugar (packed tight like your fave jeans) 👖',
+            unsaltedButter: 'Homnemade Brown Butter 🧈',
+            granulatedSugar: 'White Sugar 🍬',
+            lightBrownSugar: 'Light Brown Sugar',
             toastedMilkPowder: 'Toasted Milk Powder (for that extra oomph) 🥛',
             largeEggs: 'Large Eggs (room temp, pls) 🥚',
-            vanillaExtract: 'Vanilla Extract (the essence of joy) 🌟',
-            allPurposeFlour: 'All-Purpose Flour (spooned & leveled, no drama) 🌾',
-            tableSalt: 'Table Salt (just a pinch) 🧂',
-            bakingPowder: 'Baking Powder (fresh, like your kicks) 👟',
-            bakingSoda: 'Baking Soda (also fresh, duh) 🧪',
-            chocolateChips: 'Chocolate Chips/Chunks (the more, the merrier) 🍫',
+            vanillaExtract: 'Vanilla Extract',
+            allPurposeFlour: 'All-Purpose Flour',
+            tableSalt: 'Salt (just a pinch) 🧂',
+            bakingPowder: 'Baking Powder (fresh!)',
+            bakingSoda: 'Baking Soda (fresh, duh!)',
+            chocolateChips: 'Chocolate Chips/Chunks 🍫',
             prepWater: 'Water/Milk (for hydration, like your skin) 💧',
             // Prep Techniques
             prepTechTitle_brownButter: 'Browning Butter 101: Turn that butter into liquid gold! 🧈✨',
-            prepTechDesc_brownButter: `Forget steak, the Maillard reaction is here to make your cookies slap. Melt it down, watch those milk solids get toasty, and boom—nutty, butterscotch vibes for days. 
+            prepTechDesc_brownButter: `the Maillard reaction is here to make your cookies slap. Melt it down, watch those milk solids get toasty, and boom—nutty, butterscotch vibes for days. 
                                        <br>1. Cut butter into pieces in a light-colored saucepan.
                                        <br>2. Melt on medium heat, it’ll foam (water evaporating). Swirl/stir gently.
                                        <br>3. Keep heating & swirling. Milk solids sink and turn golden, then nutty brown (like toasted hazelnuts). Aroma becomes intensely nutty. Takes 5-10 mins.
@@ -172,31 +172,31 @@ document.addEventListener('DOMContentLoaded', () => {
                                              <br>4. Cool completely before using.`,
             // Notes & Steps
             classicNotes: `Classic balance relies on the 1:1 sugar ratio, combined leavening for moderate lift/spread, and PERFECT creaming. Don’t skimp on chilling or creaming time! Butter temp (60-65°F) is non-negotiable. Trust the process, it’s worth it. 🙌`,
-            classicSteps: `1. **Prep:** Whisk flour, salt, baking powder, soda. Line baking sheets. Ensure butter is chilled pliable (60-65°F), eggs room temp.
-                           2. **Cream:** Beat chilled brown butter & sugars on med-high speed for a FULL 5 mins until light, fluffy, increased volume (this is key!). Scrape bowl.
-                           3. **Add Wet:** Low speed. Add eggs one by one, mixing *just* until combined. Mix in vanilla with last egg. Don’t overmix!
-                           4. **Add Dry:** Lowest speed. Add flour mix gradually, mixing *only* until streaks disappear. Finish by hand if needed to avoid toughness.
-                           5. **Fold:** Gently fold in chocolate chips with a spatula.
-                           6. **Chill (Recommended):** Cover dough, refrigerate 30-60 mins minimum (up to 48 hrs for deeper flavor). Solidifies fat, hydrates flour.
-                           7. **Scoop & Bake:** Preheat 375°F (190°C). Scoop ~2 Tbsp balls onto sheets, 2 inches apart. Bake 10-12 mins, until edges golden, center soft/puffy. Rotate sheet halfway.
-                           8. **Cool:** Cool on sheet 3-5 mins (critical setting time!), then transfer to wire rack.`,
+            classicSteps: `   **Prep:** Whisk flour, salt, baking powder, soda. Line baking sheets. Ensure butter is chilled pliable (60-65°F), eggs room temp.
+                              **Cream:** Beat chilled brown butter & sugars on med-high speed for a FULL 5 mins until light, fluffy, increased volume (this is key!). Scrape bowl.
+                              **Add Wet:** Low speed. Add eggs one by one, mixing *just* until combined. Mix in vanilla with last egg. Don’t overmix!
+                              **Add Dry:** Lowest speed. Add flour mix gradually, mixing *only* until streaks disappear. Finish by hand if needed to avoid toughness.
+                              **Fold:** Gently fold in chocolate chips with a spatula.
+                              **Chill (Recommended):** Cover dough, refrigerate 30-60 mins minimum (up to 48 hrs for deeper flavor). Solidifies fat, hydrates flour.
+                              **Scoop & Bake:** Preheat 375°F (190°C). Scoop ~2 Tbsp balls onto sheets, 2 inches apart. Bake 10-12 mins, until edges golden, center soft/puffy. Rotate sheet halfway.
+                              **Cool:** Cool on sheet 3-5 mins (critical setting time!), then transfer to wire rack.`,
             thickNotes: `Thickness demands fighting spread! High brown sugar, NO soda, MANDATORY long chill are key. Moderate creaming prevents collapse. Toasted milk powder adds nutty depth and subtle chew. Embrace the underbake for ultimate goo!`,
-            thickSteps: `1. **Prep:** Whisk flour, toasted milk powder, salt, baking powder. Line sheets. Ensure butter chilled pliable (60-65°F), eggs room temp.
-                         2. **Cream (Moderately):** Beat chilled brown butter & sugars on medium speed ~2-3 mins until combined and creamy (NOT super light/fluffy like classic). Scrape bowl. Avoid over-aerating.
-                         3. **Add Wet:** Low speed. Add eggs one by one, just until combined. Mix in vanilla.
-                         4. **Add Dry:** Lowest speed. Add flour mix in 4-5 additions, mixing until *almost* combined (few streaks ok). Minimizes gluten.
-                         5. **Fold:** Add massive amount of chocolate. Use sturdy spatula/hands to fold, incorporating final flour bits. Dough will be THICK. Do not overmix.
-                         6. **MANDATORY Chill:** Divide dough into LARGE balls (4-6 oz / 113-170g each). Roll tall. Wrap tightly. Refrigerate MINIMUM 4 hours, ideally 12-72 hours. DO NOT SKIP/SHORTEN.
-                         7. **Bake COLD:** Preheat 350°F (180°C). Place COLD dough balls far apart on sheet. Do NOT flatten. Bake 18-25 mins (depends on size). Edges set, center very soft, slightly gooey, maybe underbaked. (Internal temp 175-185°F / 79-85°C is a good target). Rotate sheet halfway.
-                         8. **Cool CAREFULLY:** Cool on sheet 10-15 MINUTES. They are delicate! Transfer gently to wire rack. Best enjoyed warm (but not molten hot!).`,
+            thickSteps: `   **Prep:** Whisk flour, toasted milk powder, salt, baking powder. Line sheets. Ensure butter chilled pliable (60-65°F), eggs room temp.
+                            **Cream (Moderately):** Beat chilled brown butter & sugars on medium speed ~2-3 mins until combined and creamy (NOT super light/fluffy like classic). Scrape bowl. Avoid over-aerating.
+                            **Add Wet:** Low speed. Add eggs one by one, just until combined. Mix in vanilla.
+                            **Add Dry:** Lowest speed. Add flour mix in 4-5 additions, mixing until *almost* combined (few streaks ok). Minimizes gluten.
+                            **Fold:** Add massive amount of chocolate. Use sturdy spatula/hands to fold, incorporating final flour bits. Dough will be THICK. Do not overmix.
+                            **MANDATORY Chill:** Divide dough into LARGE balls (4-6 oz / 113-170g each). Roll tall. Wrap tightly. Refrigerate MINIMUM 4 hours, ideally 12-72 hours. DO NOT SKIP/SHORTEN.
+                            **Bake COLD:** Preheat 350°F (180°C). Place COLD dough balls far apart on sheet. Do NOT flatten. Bake 18-25 mins (depends on size). Edges set, center very soft, slightly gooey, maybe underbaked. (Internal temp 175-185°F / 79-85°C is a good target). Rotate sheet halfway.
+                            **Cool CAREFULLY:** Cool on sheet 10-15 MINUTES. They are delicate! Transfer gently to wire rack. Best enjoyed warm (but not molten hot!).`,
             thinNotes: `Crispiness = Maximum Spread + Minimum Gluten. High granulated sugar, high baking soda (alkalinity boosts browning/spread), and reverse creaming (coats flour with fat first) are crucial. NO chilling! Bake thoroughly.`,
-            thinSteps: `1. **Prep:** Line sheets. Ensure butter is cool but pliable (65-68°F / 18-20°C), cut into small pieces. Eggs room temp. Whisk eggs & vanilla in small bowl.
-                        2. **Reverse Cream:** In mixer bowl, combine flour, sugars, salt, baking soda. Mix briefly. Add cool butter pieces. Mix on low until mixture resembles coarse, damp sand/crumbs (butter worked in, coating flour). Takes a few mins.
-                        3. **Combine Wet/Dry:** Mixer on low. Gradually stream in egg/vanilla mixture. Mix *only* until a cohesive-parole dough just forms. It might look crumbly first. DO NOT OVERMIX. Tenderness is key.
-                        4. **Fold:** Gently fold in finely chopped chocolate or mini chips with spatula. Minimal strokes.
-                        5. **Scoop & Bake IMMEDIATELY:** Do NOT chill! Preheat 350°F (175°C). Scoop small portions (~1 Tbsp) onto sheets, leaving PLENTY of space (3+ inches) – they spread a LOT!
-                        6. **Bake for Crispness:** Bake 12-16 mins until spread thin and uniformly golden brown edge-to-center. May look slightly puffy in middle but will flatten on cooling. Rotate sheet halfway. Slight overbaking is OK for crispness.
-                        7. **Cool COMPLETELY:** Cool on sheet 5-10 mins until firm enough to move. Transfer to wire rack to cool completely. Full crispness develops upon cooling as sugars recrystallize.`,
+            thinSteps: `   **Prep:** Line sheets. Ensure butter is cool but pliable (65-68°F / 18-20°C), cut into small pieces. Eggs room temp. Whisk eggs & vanilla in small bowl.
+                           **Reverse Cream:** In mixer bowl, combine flour, sugars, salt, baking soda. Mix briefly. Add cool butter pieces. Mix on low until mixture resembles coarse, damp sand/crumbs (butter worked in, coating flour). Takes a few mins.
+                           **Combine Wet/Dry:** Mixer on low. Gradually stream in egg/vanilla mixture. Mix *only* until a cohesive-parole dough just forms. It might look crumbly first. DO NOT OVERMIX. Tenderness is key.
+                           **Fold:** Gently fold in finely chopped chocolate or mini chips with spatula. Minimal strokes.
+                           **Scoop & Bake IMMEDIATELY:** Do NOT chill! Preheat 350°F (175°C). Scoop small portions (~1 Tbsp) onto sheets, leaving PLENTY of space (3+ inches) – they spread a LOT!
+                           **Bake for Crispness:** Bake 12-16 mins until spread thin and uniformly golden brown edge-to-center. May look slightly puffy in middle but will flatten on cooling. Rotate sheet halfway. Slight overbaking is OK for crispness.
+                           **Cool COMPLETELY:** Cool on sheet 5-10 mins until firm enough to move. Transfer to wire rack to cool completely. Full crispness develops upon cooling as sugars recrystallize.`,
             // Easter Egg & Recs
             stuffedTitle: 'YOU UNLOCKED THE SECRET SAUCE! 🎉',
             stuffedCongrats: 'Congrats, Legend! Choosing the Thick & Gooey path reveals ultimate potential. You can STUFF these behemoths!',
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pistachioTipDesc: 'Forget watery imitations! For that INTENSE, straight-up pistachio flavour that tastes like liquid gold, I HIGHLY recommend "ASM Foods Pistachio Cream". It’s ridiculously good. Seriously.',
             pistachioTipLink: 'Check it out here (Egypt Link)',
             chocoTipTitle: 'Chocolate Chip Science:',
-            chocoTipDesc: 'Not all chocolate chips are created equal! For that melt-in-your-mouth, nostalgic flavour reminiscent of the good stuff (like Galaxy/Dairy Milk, but BETTER because #Boycott!), hunt down "Target Kualety Dropsy" MILK Chocolate. It’s the sweet secret weapon.',
+            chocoTipDesc: 'Not all chocolate chips are created equal! For that melt-in-your-mouth, nostalgic flavour reminiscent of the good stuff (like Galaxy/Dairy Milk, but BETTER because #Boycott!), hunt down "Dropsy" MILK Chocolate. It’s the sweet secret weapon.',
             chocoTipLink: 'Find them via suppliers like this (Facebook Link)',
             chocoTipMilk: 'Make SURE it’s the MILK chocolate version for maximum deliciousness!',
             // Conclusion
@@ -251,17 +251,17 @@ document.addEventListener('DOMContentLoaded', () => {
             stepsTitle: 'يلا نخبز يا صاحبي! 👩‍🍳',
             proTipsTitle: 'نصائح احترافية من سينسي الكوكيز بتاعك 🧠',
             // Ingredient Names
-            unsaltedButter: 'زبدة غير مملحة (النجمة بتاعة الشو) 🧈',
-            granulatedSugar: 'سكر حبيبات (مستوى الحلاوة: عالي) 🍬',
-            lightBrownSugar: 'سكر بني فاتح (مكبوس زي بنطلونك المفضل) 👖',
-            toastedMilkPowder: 'بودرة حليب محمصة (عشان الطعم الإضافي) 🥛',
+            unsaltedButter: 'زبدة ‏الذهبية',
+            granulatedSugar: 'سكر حبيبات',
+            lightBrownSugar: 'سكر بني',
+            toastedMilkPowder: 'بودرة حليب محمص',
             largeEggs: 'بيض كبير (بدرجة حرارة الغرفة، لو سمحت) 🥚',
-            vanillaExtract: 'مستخلص فانيليا (جوهر الفرح) 🌟',
-            allPurposeFlour: 'دقيق متعدد الأغراض (مملوء بالملعقة وممسوح، من غير دراما) 🌾',
-            tableSalt: 'ملح طعام (شوية بس) 🧂',
-            bakingPowder: 'بيكنج بودر (طازج، زي حذائك) 👟',
-            bakingSoda: 'بيكنج صودا (كمان طازجة، طبعًا) 🧪',
-            chocolateChips: 'حبيبات/قطع شوكولاتة (كل ما زاد، كل ما كان أحسن) 🍫',
+            vanillaExtract: 'فانيليا',
+            allPurposeFlour: 'دقيق متعدد الأغراض',
+            tableSalt: 'ملح (شوية بس) ',
+            bakingPowder: 'بيكنج بودر',
+            bakingSoda: 'بيكنج صودا',
+            chocolateChips: 'حبيبات/قطع شوكولاتة (كل ما زاد، كل ما كان أحسن) ',
             prepWater: 'ماء/حليب (للترطيب، زي بشرتك) 💧',
             // Prep Techniques
             prepTechTitle_brownButter: 'تحمير الزبدة 101: حول الزبدة دي لدهب سايل! 🧈✨',
