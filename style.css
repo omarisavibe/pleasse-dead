@@ -9,170 +9,192 @@ html {
     scroll-behavior: smooth;
 }
 
-/* --- CSS Variables for Unique Cookie Vibe Style --- */
+/* --- CSS Variables for Modern Cookie Style --- */
 :root {
-    --bg-color: #fff9ec; /* Light, cookie-dough color */
-    --text-color: #332c27; /* Rich, chocolatey brown */
-    --primary-brown: #a0522d; /* Sienna, like baked edges */
-    --accent-brown: #f4a460; /* Sandy brown, for highlights */
-    --dark-brown: #4a2c2a; /* Deep brown for headings */
-    --border-color: #795548; /* Coffee-colored border */
-    --shadow-color: rgba(0, 0, 0, 0.2); /* Softer shadow */
-    --highlight-bg: #ffeb3b; /* Bright yellow for a sprinkle feel */
-    --highlight-border: #fbc02d; /* Darker yellow highlight border */
-    --secondary-highlight-bg: #f0f4c3; /* Light lime for variety */
-    --secondary-highlight-border: #cddc39; /* Lime border */
-    --action-color: #ff9800; /* Vibrant orange, like caramel */
-    --action-hover-color: #f57c00;
-    --warning-color: #ff5722; /* Tomato red */
+    --bg-color: #fdfaf6; 
+    --text-color: #1a1a1a;
+    --primary-brown: #6b4f4b;
+    --accent-brown: #a0522d;
+    --dark-brown: #4a2c2a;
+    --border-color: #1a1a1a;
+    --shadow-color: rgba(26, 26, 26, 0.7);
+    --highlight-bg: #fffbeb;
+    --highlight-border: #f0ad4e;
+    --secondary-highlight-bg: #e0f2f1;
+    --secondary-highlight-border: #00796b;
+    --action-color: #ff7043; /* Changed to orange for cookie theme */
+    --action-hover-color: #e64a19;
+    --warning-color: #d9534f;
 
     --border-width: 2px;
-    --shadow-offset: 5px;
-    --border-radius-sharp: 6px;
-    --border-radius-soft: 12px; /* Softer curves */
+    --shadow-offset: 6px;
+    --border-radius-sharp: 12px; /* Increased radius for modern feel */
+    --border-radius-soft: 24px; /* Increased soft radius */
 }
 
 body {
-    font-family: 'Nunito', sans-serif; /* Playful, rounded font */
-    line-height: 1.8;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.7;
     color: var(--text-color);
     background-color: var(--bg-color);
     overflow-x: hidden;
-    /* Subtle background texture */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='%23fdf0d5' opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h20v20H0V0zm1 1h18v18H1V1zm10.97 1.03a7 7 0 100 9.9 7 7 0 000-9.9zm-8.8 8.8a5 5 0 100-7.07 5 5 0 000 7.07z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4 {
-    font-family: 'Caveat', cursive; /* Whimsical, handwritten font for headings */
     font-weight: 700;
-    margin-bottom: 0.7em;
+    margin-bottom: 0.8em;
     color: var(--dark-brown);
-    letter-spacing: 0.8px;
-    text-shadow: 1px 1px var(--shadow-color); /* Subtle text shadow */
+    letter-spacing: 0.5px;
 }
 
-h1 { font-size: clamp(3rem, 7vw, 4.5rem); text-transform: capitalize;}
-h2 { font-size: clamp(2rem, 5vw, 3rem); }
+h1 { 
+    font-size: clamp(2.8rem, 8vw, 4.5rem); 
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--dark-brown), var(--accent-brown));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+}
+
+h2 { font-size: clamp(2.2rem, 6vw, 3.2rem); }
 h3 { font-size: 1.8rem; }
 h4 { font-size: 1.4rem; font-weight: 600; }
 
 p {
-    font-size: 1.1rem;
-    margin-bottom: 1.4em;
-    max-width: 65ch;
+    margin-bottom: 1.2em;
+    max-width: 70ch;
 }
 
 a {
     color: var(--action-color);
-    text-decoration: none; /* Remove default underline */
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
     font-weight: 600;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 a:hover {
-    color: var(--action-hover-color);
-    text-shadow: 1px 1px var(--shadow-color), 2px 2px var(--shadow-color);
-    text-decoration: underline dotted var(--action-hover-color); /* Dotted underline on hover */
+    color: var(--bg-color);
+    background-color: var(--action-hover-color);
+    text-decoration: none;
 }
 
 img {
     max-width: 100%;
     height: auto;
     display: block;
-    border-radius: var(--border-radius-soft); /* Softer image corners */
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    border-radius: var(--border-radius-sharp);
 }
 
-/* --- Unique Border & Shadow Styles (Softer) --- */
+/* --- Unique Border & Shadow Styles --- */
 .hard-border {
     border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius-soft);
 }
 
 .hard-shadow {
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 10px var(--shadow-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .interactive-shadow:hover,
 .interactive-shadow:focus-visible {
     transform: translate(-3px, -3px);
-    box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) var(--shadow-color);
+    box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) 12px var(--shadow-color);
 }
-/* Custom Focus Visible */
+
 *:focus-visible {
-    outline: 2px dashed var(--action-color);
-    outline-offset: 4px;
+    outline: 3px dashed var(--action-color);
+    outline-offset: 3px;
 }
-/* Remove default outline if using custom */
+
 *:focus {
     outline: none;
 }
 
-/* --- Toggles (With Cookie Style) --- */
+/* --- Toggles --- */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 12px;
+}
+
 .toggle-container button {
-    background-color: var(--accent-brown); /* Sandy brown button */
-    color: var(--bg-color); /* Light text */
-    border: none;
-    padding: 10px 20px;
-    border-radius: var(--border-radius-soft);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: var(--border-width) solid var(--border-color);
+    padding: 8px 18px;
+    border-radius: var(--border-radius-sharp);
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
-    box-shadow: 3px 3px var(--shadow-color);
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 4px 4px 8px var(--shadow-color);
+    transition: all 0.2s ease;
 }
 
 .toggle-container button:hover {
-    background-color: var(--primary-brown); /* Darker brown on hover */
-    transform: translateY(-2px);
-    box-shadow: 4px 4px var(--shadow-color);
+    background-color: var(--highlight-bg);
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 10px var(--shadow-color);
 }
 
 .toggle-container button:active {
-     transform: translateY(1px);
-     box-shadow: 2px 2px var(--shadow-color);
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 5px var(--shadow-color);
 }
 
-
-/* --- Immersive Header (Adapted for Full-Page Images) --- */
+/* --- Modernized Header --- */
 .immersive-header {
-    min-height: 97vh; /* Almost full viewport height */
+    min-height: 100vh;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Responsive columns for images */
-    gap: 10px;
-    padding: 30px 15px; /* Adjust padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #f4e9dd, #f9f3e9);
+    padding: 60px 20px 40px 20px;
     position: relative;
     overflow: hidden;
     border-bottom: var(--border-width) solid var(--border-color);
-    align-items: center; /* Vertically align items in the grid */
-    background-color: var(--bg-color); /* Consistent background */
 }
 
 .header-content {
-    grid-column: 1 / -1; /* Span across all image columns */
-    justify-self: center;
-    align-self: center;
-    text-align: center;
-    margin-bottom: 20px; /* Space above the images */
+    margin-bottom: 3vh;
     max-width: 850px;
     z-index: 10;
     position: relative;
 }
 
 .immersive-header h1 {
-    color: var(--dark-brown);
-    margin-bottom: 0.6em;
-    text-shadow: 2px 2px var(--shadow-color);
+    margin-bottom: 0.4em;
+    position: relative;
+    z-index: 5;
+}
+
+.immersive-header h1::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 6px;
+    background: var(--accent-brown);
+    border-radius: 3px;
 }
 
 .immersive-header p {
-    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-size: clamp(1.2rem, 3.5vw, 1.6rem);
     color: var(--primary-brown);
-    max-width: 60ch;
+    max-width: 55ch;
     margin-left: auto;
     margin-right: auto;
     font-weight: 500;
@@ -180,63 +202,72 @@ img {
 
 .header-comparison-image {
     display: block;
-    width: 100%;
-    height: 450px; /* Slightly taller images */
-    object-fit: cover;
-    margin-top: 0;
+    max-width: 95%;
+    width: auto;
+    max-height: 65vh;
+    object-fit: contain;
+    margin-top: 2vh;
     border-radius: var(--border-radius-soft);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
-    transition: transform 0.4s ease-in-out;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
+    background-color: transparent; /* Make background transparent */
+    padding: 8px;
+    z-index: 5;
+    transition: transform 0.5s ease;
 }
 
 .header-comparison-image:hover {
-    transform: scale(1.05);
-    box-shadow: calc(var(--shadow-offset) + 5px) calc(var(--shadow-offset) + 5px) var(--shadow-color);
+    transform: scale(1.02);
 }
 
-/* --- Scroll Down Arrow (Adapted) --- */
+/* --- Scroll Down Arrow --- */
 .scroll-down-link {
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     color: var(--accent-brown);
-    font-size: 2.5rem; /* Even larger arrow */
+    font-size: 2.5rem;
     z-index: 20;
-    opacity: 0.7;
+    opacity: 0.8;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    animation: bounce 2.5s infinite ease-in-out; /* Slightly slower bounce */
+    animation: bounce 2s infinite ease-in-out;
 }
+
+.scroll-down-link, .scroll-down-link:hover {
+    background-color: transparent;
+    text-decoration: none;
+}
+
 .scroll-down-link:hover {
     opacity: 1;
-    transform: translateX(-50%) translateY(8px);
+    transform: translateX(-50%) translateY(5px);
     color: var(--dark-brown);
 }
 
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-15px); }
-    60% { transform: translateX(-50%) translateY(-8px); }
+    40% { transform: translateX(-50%) translateY(-12px); }
+    60% { transform: translateX(-50%) translateY(-6px); }
 }
-
 
 /* --- Main Content Area --- */
 main {
-    padding: 50px 20px;
-    max-width: 1000px;
+    padding: 80px 20px 60px 20px;
+    max-width: 1200px; /* Expanded for larger content */
     margin: 0 auto;
 }
 
-/* --- Card Styling (Unique) --- */
+/* --- Card Styling --- */
 .card {
-    background-color: #fff; /* White cards for better contrast */
+    background-color: var(--bg-color);
     padding: 40px 50px;
-    margin-bottom: 50px;
-    border-radius: var(--border-radius-soft);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    margin-bottom: 60px;
+    border-radius: var(--border-radius-sharp);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
@@ -244,10 +275,23 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Input Section (Unique) --- */
+/* --- Input Section --- */
 .input-section h2, .selection-section h2 {
     text-align: center;
-    margin-bottom: 1.2em;
+    margin-bottom: 1.5em;
+    position: relative;
+}
+
+.input-section h2::after, .selection-section h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--accent-brown);
+    border-radius: 2px;
 }
 
 .input-group {
@@ -255,25 +299,25 @@ main {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 15px;
     margin-bottom: 30px;
 }
 
 #butter-amount, #butter-unit {
     padding: 16px 20px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-soft);
-    font-size: 1.15rem;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-sharp);
+    font-size: 1.2rem;
     background-color: #fff;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: inset 2px 2px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05);
 }
 
 #butter-amount {
     width: 180px;
     text-align: right;
     flex-grow: 1;
-    min-width: 130px;
+    min-width: 120px;
 }
 
 #butter-unit {
@@ -284,38 +328,55 @@ main {
 
 #butter-amount:focus, #butter-unit:focus {
     border-color: var(--action-color);
-    box-shadow: inset 2px 2px rgba(0,0,0,0.05), 0 0 0 3px var(--action-color);
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), 0 0 0 3px rgba(255, 112, 67, 0.3);
+    transform: translateY(-2px);
 }
 
-/* --- Main Action Button (Unique) --- */
+/* --- Main Action Button --- */
 #start-experiment-btn {
     display: block;
-    margin: 35px auto 0 auto;
-    padding: 18px 45px;
+    margin: 40px auto 0 auto;
+    padding: 16px 45px;
     background-color: var(--action-color);
     color: var(--bg-color);
-    border: none;
-    border-radius: var(--border-radius-soft);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-sharp);
     font-size: 1.3rem;
     font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    letter-spacing: 1px;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#start-experiment-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 #start-experiment-btn:hover {
     background-color: var(--action-hover-color);
-    transform: translateY(-2px);
-    box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) var(--shadow-color);
+    transform: translate(-3px, -3px);
+    box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) 15px var(--shadow-color);
+}
+
+#start-experiment-btn:hover::before {
+    left: 100%;
 }
 
 #start-experiment-btn:active {
-    transform: translateY(1px);
-    box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) var(--shadow-color);
+    transform: translate(var(--shadow-offset) / 2, var(--shadow-offset) / 2);
+    box-shadow: calc(var(--shadow-offset) / 2) calc(var(--shadow-offset) / 2) 8px var(--shadow-color);
 }
-
 
 .warning {
     color: var(--warning-color);
@@ -324,51 +385,68 @@ main {
     text-align: center;
     margin-top: 20px;
     border: 2px dashed var(--warning-color);
-    padding: 10px;
-    border-radius: var(--border-radius-soft);
-    background-color: rgba(255, 87, 34, 0.1);
+    padding: 12px;
+    border-radius: var(--border-radius-sharp);
+    background-color: rgba(217, 83, 79, 0.07);
 }
 
-
-/* --- Cookie Selection Section (Unique) --- */
+/* --- Modern Cookie Selection Section --- */
 .cookie-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
     gap: 40px;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .cookie-option {
     text-align: center;
-    padding: 35px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-soft);
+    padding: 40px 30px;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-sharp);
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: #fff;
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    background-color: var(--bg-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle pattern to cookie cards */
+.cookie-option::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.7;
+    z-index: 0;
 }
 
 .cookie-option img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    width: 280px; /* Much larger images */
+    height: 280px;
+    object-fit: contain; /* Ensures the whole image is visible */
     border-radius: 50%;
     margin: 0 auto 30px auto;
-    border: 2px solid var(--border-color);
-    transition: transform 0.4s ease-in-out;
-    box-shadow: 3px 3px var(--shadow-color);
-    background-color: var(--bg-color); /* Background to show transparency if image supports it */
+    border: var(--border-width) solid var(--border-color);
+    transition: transform 0.4s ease;
     padding: 8px;
+    background-color: transparent; /* Transparent background */
+    position: relative;
+    z-index: 1;
 }
 
 .cookie-option h3 {
-    margin-bottom: 0.6em;
+    margin-bottom: 0.5em;
     color: var(--dark-brown);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 1;
 }
 
 .cookie-option p {
@@ -377,60 +455,114 @@ main {
     margin-bottom: 0;
     flex-grow: 1;
     font-weight: 500;
+    position: relative;
+    z-index: 1;
 }
 
 .cookie-option:hover {
-    transform: translateY(-5px);
-    box-shadow: calc(var(--shadow-offset) + 5px) calc(var(--shadow-offset) + 5px) var(--shadow-color);
-    background-color: #f8bbd0; /* Pinkish highlight on hover */
+    transform: translate(-4px, -4px) rotate(-1deg);
+    box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 15px var(--shadow-color);
+    background-color: var(--highlight-bg);
 }
 
 .cookie-option:hover img {
-     transform: scale(1.08);
-     box-shadow: 5px 5px var(--shadow-color);
+    transform: scale(1.05) rotate(5deg);
 }
 
 .cookie-option.selected {
     border-color: var(--action-color);
-    background-color: #ffe0b2; /* Light orange for selected */
-    transform: translateY(2px);
-    box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) var(--shadow-color);
+    background-color: rgba(255, 112, 67, 0.08);
+    transform: translate(2px, 2px);
+    box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) 8px var(--action-color);
 }
 
 .cookie-option.selected img {
     border-color: var(--action-color);
-    box-shadow: 2px 2px var(--shadow-color);
+    transform: scale(1.02);
 }
 
-/* --- Recipe Display Section (Adapted) --- */
-.recipe-section h2 { /* Recipe Title */
+/* Add subtle shine effect to selected cookie */
+.cookie-option.selected::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    opacity: 0.6;
+    z-index: 0;
+    animation: shine 2s infinite linear;
+}
+
+@keyframes shine {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Recipe Display Section --- */
+.recipe-section h2 {
     text-align: center;
-    margin-bottom: 1.2em;
+    margin-bottom: 1em;
     color: var(--accent-brown);
-    text-shadow: 1px 1px var(--shadow-color);
+    position: relative;
+}
+
+.recipe-section h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--accent-brown);
+    border-radius: 2px;
 }
 
 .recipe-yield {
     text-align: center;
-    font-style: italic;
+    font-style: normal;
     color: var(--primary-brown);
     margin-bottom: 40px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
+    background-color: var(--highlight-bg);
+    padding: 8px 20px;
+    border-radius: var(--border-radius-sharp);
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .ingredients-title, .prep-tech-title, .steps-title {
     font-size: 2rem;
     color: var(--dark-brown);
     margin-top: 2em;
-    margin-bottom: 1.4em;
+    margin-bottom: 1.2em;
     padding-bottom: 0.5em;
-    border-bottom: 2px dashed var(--border-color);
+    border-bottom: var(--border-width) solid var(--border-color);
+    position: relative;
+}
+
+.ingredients-title::before, .prep-tech-title::before, .steps-title::before {
+    content: "🍪";
+    margin-right: 10px;
+    font-size: 1.8rem;
+}
+
+.prep-tech-title::before {
+    content: "⏲️";
+}
+
+.steps-title::before {
+    content: "👨‍🍳";
 }
 
 .ingredient-list ul, .recipe-steps ol {
     list-style-position: outside;
-    padding-left: 35px;
+    padding-left: 30px;
     margin-bottom: 40px;
 }
 
@@ -439,10 +571,10 @@ main {
     font-size: 1.1rem;
 }
 
-.ingredient-list strong { /* Amount */
+.ingredient-list strong {
     display: inline-block;
     min-width: 130px;
-    margin-right: 18px;
+    margin-right: 15px;
     font-weight: 700;
     color: var(--text-color);
 }
@@ -450,16 +582,12 @@ main {
 .ingredient-list .unit-g, .ingredient-list .unit-cups {
     font-size: 0.95em;
     color: var(--primary-brown);
-    margin-left: 6px;
+    margin-left: 5px;
     display: inline-block;
 }
 
-.ingredient-list .unit-cups::before, .ingredient-list .unit-cups::after { content: " ("; }
-.ingredient-list .unit-cups::after { content: ")"; }
-
-
 .recipe-steps li {
-    line-height: 2;
+    line-height: 1.9;
 }
 
 .recipe-steps li::marker {
@@ -468,105 +596,122 @@ main {
     font-size: 1.2em;
 }
 
-.recipe-steps strong { /* Highlight key actions */
+.recipe-steps strong {
     font-weight: 700;
     background-color: var(--highlight-bg);
     padding: 0.2em 0.4em;
-    border-radius: var(--border-radius-soft);
+    border-radius: 4px;
     color: var(--text-color);
     border: 1px solid var(--highlight-border);
 }
 
-/* --- Pro Tips & Notes (Unique) --- */
+/* --- Pro Tips & Notes --- */
 .pro-tip, .note {
-    background-color: #fff;
+    background-color: var(--highlight-bg);
     padding: 30px 35px;
-    border-radius: var(--border-radius-soft);
+    border-radius: var(--border-radius-sharp);
     margin: 40px 0;
-    border: 1px solid var(--border-color);
-    border-left: 10px solid var(--highlight-border);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+    border: var(--border-width) solid var(--border-color);
+    border-left: 8px solid var(--highlight-border);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px rgba(0,0,0,0.12);
     position: relative;
     font-size: 1.1rem;
 }
 
 .note {
-    background-color: #e0f7fa; /* Light cyan for other notes */
+    background-color: var(--secondary-highlight-bg);
     border-left-color: var(--secondary-highlight-border);
 }
 
 .pro-tip h4, .note h4 {
-    font-family: 'Caveat', cursive;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: var(--text-color);
     margin-top: 0;
-    margin-bottom: 1em;
+    margin-bottom: 0.8em;
     border-bottom: 2px dashed var(--primary-brown);
-    padding-bottom: 10px;
-    letter-spacing: 1.5px;
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 {
-     font-family: 'Caveat', cursive;
-     font-size: 2rem;
-     letter-spacing: normal;
-     color: var(--dark-brown);
-     border-bottom-style: solid;
-     border-bottom-color: var(--highlight-border);
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--dark-brown);
+    border-bottom-style: solid;
+    border-bottom-color: var(--highlight-border);
 }
+
 #chocolate-recommendation h4 {
     border-bottom-color: var(--secondary-highlight-border);
 }
 
-
 .pro-tip p, .note p {
-    margin-bottom: 1em;
-    line-height: 1.9;
+    margin-bottom: 0.8em;
+    line-height: 1.7;
 }
 
-/* --- Easter Egg (Unique) --- */
+.pro-tip code, .note code {
+    background-color: rgba(0,0,0,0.08);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    color: var(--text-color);
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.pro-tip p + p, .note p + p {
+    margin-top: 1em;
+}
+
+/* --- Easter Egg --- */
 .easter-egg {
     background: repeating-linear-gradient(
         45deg,
-        #fffde7,
-        #fffde7 15px,
-        #e1bee7 15px,
-        #e1bee7 30px
-    ); /* Light yellow and light purple stripes */
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-soft);
-    margin-top: 50px;
-    padding: 45px;
-    box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-color);
+        var(--secondary-highlight-bg),
+        var(--secondary-highlight-bg) 15px,
+        #c8e6c9 15px,
+        #c8e6c9 30px
+    );
+    border: var(--border-width) solid var(--border-color);
+    margin-top: 60px;
+    padding: 50px;
+    border-radius: var(--border-radius-sharp);
 }
 
 .easter-egg h2 {
     text-align: center;
-    color: var(--accent-brown);
+    color: var(--secondary-highlight-border);
     font-weight: 700;
     background-color: var(--bg-color);
-    padding: 12px 25px;
+    padding: 15px 25px;
     display: inline-block;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-soft);
-    box-shadow: 3px 3px var(--shadow-color);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-sharp);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .stuffed-image {
-    max-width: 400px; /* Larger stuffed cookie */
-    margin: 35px auto;
-    border-radius: var(--border-radius-soft);
-    border: none; /* No border for a cleaner look */
-    box-shadow: 5px 5px var(--shadow-color);
-    padding: 0; /* No padding */
-    background-color: transparent; /* Make background transparent */
+    max-width: 350px;
+    margin: 40px auto;
+    border-radius: var(--border-radius-sharp);
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
+    padding: 12px;
+    background-color: #fff;
 }
 
 .easter-egg .pro-tip {
-    background-color: #fff;
+    background-color: var(--bg-color);
     border-left-color: var(--action-color);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) rgba(255, 152, 0, 0.3);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px rgba(41, 98, 255, 0.2);
 }
 
 .easter-egg .pro-tip h4 {
@@ -574,121 +719,314 @@ main {
     border-bottom-color: var(--action-color);
 }
 
-/* --- Conclusion & Footer (Unique) --- */
+/* --- Conclusion & Footer --- */
 .conclusion {
     text-align: center;
-    background-color: #f1f8e9; /* Light green */
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-top: 45px;
-    padding-bottom: 45px;
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-top: var(--border-width) solid var(--border-color);
+    border-bottom: var(--border-width) solid var(--border-color);
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .conclusion h2 {
-    color: var(--action-color);
+    color: #2e7d32;
     text-transform: uppercase;
-    text-shadow: 1px 1px var(--shadow-color);
+    position: relative;
 }
 
-.conclusion p { max-width: 70ch; margin-left: auto; margin-right: auto; font-weight: 500; font-size: 1.1rem;}
-.conclusion strong { font-weight: 700; }
+.conclusion h2::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: #2e7d32;
+    border-radius: 2px;
+}
+
+.conclusion p {
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.conclusion strong {
+    font-weight: 700;
+}
+
 .conclusion a {
     color: var(--bg-color);
-    background-color: var(--action-color);
-    padding: 4px 8px;
-    border-radius: var(--border-radius-soft);
+    background-color: #2e7d32;
+    padding: 4px 10px;
+    border-radius: 6px;
     text-decoration: none;
-    box-shadow: 2px 2px var(--shadow-color);
-    transition: background-color 0.3s ease;
+    border: 1px solid #1b5e20;
+    transition: all 0.3s ease;
 }
 
 .conclusion a:hover {
-    background-color: var(--action-hover-color);
+    background-color: #1b5e20;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 footer {
     text-align: center;
     padding: 40px;
     margin-top: 0;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--primary-brown);
-    background-color: var(--bg-color);
-    border-top: 1px solid var(--border-color);
+    background: linear-gradient(135deg, #f4e9dd, #f9f3e9);
+    border-top: var(--border-width) solid var(--border-color);
 }
 
 /* --- RTL Support --- */
 html[dir="rtl"] {
     body {
-        font-family: 'Almarai', sans-serif; /* Example Arabic font */
+        /* Consider specific Arabic font */
     }
+
     .toggle-container { left: 20px; right: auto; }
     #butter-amount { text-align: left; }
-    .ingredient-list ul, .recipe-steps ol { padding-left: 0; padding-right: 35px; }
-    .ingredient-list strong { margin-left: 18px; margin-right: 0; }
-    .ingredient-list .unit-g, .ingredient-list .unit-cups { margin-left: 0; margin-right: 6px; }
-    .pro-tip, .note { border-left: 1px solid var(--border-color); border-right: 10px solid var(--highlight-border); }
+    .ingredient-list ul, .recipe-steps ol { padding-left: 0; padding-right: 30px; }
+    .ingredient-list strong { margin-left: 15px; margin-right: 0; }
+    .ingredient-list .unit-g, .ingredient-list .unit-cups { margin-left: 0; margin-right: 5px; }
+
+    .pro-tip, .note { 
+        border-left: var(--border-width) solid var(--border-color); 
+        border-right: 8px solid var(--highlight-border); 
+        border-left-width: var(--border-width);
+    }
     .note { border-right-color: var(--secondary-highlight-border); }
-    .easter-egg .pro-tip { border-left: 1px solid var(--border-color); border-right-color: var(--action-color); }
-    .recipe-steps li::marker { /* Adjust marker position if needed */ }
+    .easter-egg .pro-tip { 
+        border-left: var(--border-width) solid var(--border-color); 
+        border-right-color: var(--action-color); 
+    }
 }
 
 /* --- Media Queries --- */
-@media (max-width: 980px) {
-    .immersive-header {
-        grid-template-columns: 1fr 1fr; /* Two columns on smaller screens */
-        min-height: auto; /* Adjust height */
-        padding-top: 60px;
-        padding-bottom: 40px;
+@media (max-width: 1000px) {
+    .cookie-options {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
-    .header-comparison-image {
-        height: 350px;
+    
+    .cookie-option img {
+        width: 220px;
+        height: 220px;
     }
 }
 
 @media (max-width: 768px) {
     :root {
-        --border-width: 1px;
-        --shadow-offset: 3px;
-        --border-radius-sharp: 4px;
-        --border-radius-soft: 10px;
+        --border-width: 2px;
+        --shadow-offset: 4px;
     }
-    .card { padding: 30px 35px; margin-bottom: 40px; }
-    main { padding: 40px 15px; }
-    .immersive-header {
-        grid-template-columns: 1fr; /* Single column for smaller screens */
-        text-align: center;
-        min-height: auto;
-    }
-    .header-content {
-        margin-bottom: 30px;
-    }
-    .header-comparison-image {
-        height: 300px;
-    }
-    h1 { font-size: clamp(2.5rem, 7vw, 3.5rem); }
-    h2 { font-size: clamp(1.8rem, 5.5vw, 2.6rem); }
-    .cookie-options { grid-template-columns: 1fr; gap: 30px; }
-    .cookie-option img { width: 160px; height: 160px;}
-    #start-experiment-btn { padding: 15px 35px; font-size: 1.2rem;}
-    .toggle-container button { padding: 8px 16px; font-size: 0.9rem; box-shadow: 2px 2px var(--shadow-color);}
-    .toggle-container button:hover { box-shadow: 3px 3px var(--shadow-color);}
-    .toggle-container button:active { box-shadow: 1px 1px var(--shadow-color);}
-    .pro-tip, .note { padding: 25px 30px; font-size: 1rem;}
-    .pro-tip h4, .note h4 { font-size: 1.5rem; }
+    
+    .card { padding: 30px 25px; margin-bottom: 40px; }
+    main { padding: 50px 20px 40px 20px; }
+    .immersive-header { padding: 70px 20px 40px 20px; }
+    .header-comparison-image { max-height: 50vh; }
+    
+    h1 { font-size: clamp(2.2rem, 7vw, 3rem); }
+    h2 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+    
+    .cookie-option img { width: 200px; height: 200px; }
+    
+
+#start-experiment-btn { padding: 14px 35px; font-size: 1.2rem; }
+    .toggle-container button { padding: 8px 16px; font-size: 0.9rem; box-shadow: 3px 3px 6px var(--shadow-color); }
+    .toggle-container button:hover { box-shadow: 4px 4px 8px var(--shadow-color); }
+    .toggle-container button:active { box-shadow: 1px 1px 3px var(--shadow-color); }
+    
+    .pro-tip, .note { padding: 25px 30px; }
+    .pro-tip h4, .note h4 { font-size: 1.4rem; }
     #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 { font-size: 1.8rem; }
-    .scroll-down-link { font-size: 2rem; bottom: 15px; }
+    
+    .easter-egg { padding: 35px 25px; }
 }
 
 @media (max-width: 480px) {
-    .card { padding: 20px 25px; }
-    .header-comparison-image { height: 250px; border-radius: var(--border-radius-sharp);}
-    .cookie-option img { width: 130px; height: 130px; border-radius: var(--border-radius-sharp);}
+    .card { padding: 25px 20px; }
+    .header-comparison-image { max-height: 45vh; padding: 5px; }
+    .cookie-option img { width: 150px; height: 150px; padding: 4px; }
     .ingredient-list strong { min-width: 100px; margin-right: 10px; }
-    html[dir="rtl"] .ingredient-list strong { margin-left: 10px; margin-right: 0;}
-    footer { padding: 30px; font-size: 0.95rem;}
-    h1 { font-size: clamp(2rem, 8vw, 3rem); }
-    h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
-    .input-group { flex-direction: column; align-items: stretch; }
-    #butter-amount, #butter-unit { width: auto; }
+    html[dir="rtl"] .ingredient-list strong { margin-left: 10px; margin-right: 0; }
+    footer { padding: 30px; font-size: 1rem; }
+    
+    .cookie-options {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .cookie-option {
+        padding: 30px 20px;
+    }
+    
+    .immersive-header h1::after,
+    .input-section h2::after,
+    .selection-section h2::after,
+    .recipe-section h2::after,
+    .conclusion h2::after {
+        width: 60px;
+        height: 3px;
+    }
+    
+    .ingredients-title, .prep-tech-title, .steps-title {
+        font-size: 1.8rem;
+    }
+    
+    .ingredients-title::before, .prep-tech-title::before, .steps-title::before {
+        font-size: 1.6rem;
+    }
+    
+    .pro-tip, .note {
+        padding: 20px;
+    }
+}
+
+/* Cookie Background Elements */
+.cookie-crumb {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-brown);
+    border-radius: 50%;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.immersive-header::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--highlight-bg) 0%, transparent 70%);
+    top: 15%;
+    right: -100px;
+    opacity: 0.7;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.immersive-header::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--highlight-bg) 0%, transparent 70%);
+    bottom: 10%;
+    left: -80px;
+    opacity: 0.5;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Add chocolate chip spots to cookie cards */
+.cookie-option::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: radial-gradient(var(--primary-brown) 10%, transparent 10%),
+                      radial-gradient(var(--primary-brown) 10%, transparent 10%);
+    background-position: 0 0, 30px 30px;
+    background-size: 60px 60px;
+    opacity: 0.05;
+    z-index: 0;
+}
+
+/* Enhance Cookie Images */
+.cookie-option img {
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2));
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.cookie-option:hover img {
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+.cookie-option.selected img {
+    filter: drop-shadow(0 8px 12px rgba(255, 112, 67, 0.4));
+}
+
+/* Modern button styles */
+#butter-amount, #butter-unit {
+    border-radius: var(--border-radius-sharp);
+    background: linear-gradient(to bottom, #ffffff, #f7f7f7);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 
+                0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Add subtle animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.header-comparison-image {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Additional decorative elements */
+.card::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, var(--accent-brown) 0%, transparent 70%);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+/* Recipe section enhancements */
+.ingredient-list li {
+    position: relative;
+    padding-left: 5px;
+    transition: transform 0.2s ease;
+}
+
+.ingredient-list li:hover {
+    transform: translateX(5px);
+}
+
+.recipe-steps li {
+    position: relative;
+    transition: background-color 0.3s ease;
+    padding: 5px;
+    border-radius: var(--border-radius-sharp);
+}
+
+.recipe-steps li:hover {
+    background-color: rgba(255, 251, 235, 0.5);
+}
+
+/* Enhance pro tips with icons */
+.pro-tip h4::before {
+    content: "💡"; /* Lightbulb emoji */
+    margin-right: 10px;
+}
+
+.note h4::before {
+    content: "📝"; /* Note emoji */
+    margin-right: 10px;
+}
+
+/* Add smooth transitions for all interactive elements */
+* {
+    transition-property: color, background-color, border-color, transform, box-shadow, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
 }
