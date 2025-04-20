@@ -3,6 +3,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Removed the global transition - apply transitions more specifically */
+    /* transition-property: color, background-color, border-color, transform, box-shadow, opacity; */
+    /* transition-duration: 0.3s; */
+    /* transition-timing-function: ease; */
 }
 
 html {
@@ -74,7 +78,7 @@ a {
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
     font-weight: 600;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Specific transitions */
 }
 
 a:hover {
@@ -112,7 +116,7 @@ img {
 }
 
 *:focus {
-    outline: none;
+    outline: none; /* Keep this, but rely on focus-visible */
 }
 
 /* --- Toggles --- */
@@ -136,7 +140,7 @@ img {
     font-weight: 700;
     text-transform: uppercase;
     box-shadow: 4px 4px 8px var(--shadow-color);
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .toggle-container button:hover {
@@ -213,7 +217,7 @@ img {
     background-color: transparent; /* Make background transparent */
     padding: 8px;
     z-index: 5;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, filter 0.4s ease; /* Combine transitions */
 }
 
 .header-comparison-image:hover {
@@ -230,7 +234,7 @@ img {
     font-size: 2.5rem;
     z-index: 20;
     opacity: 0.8;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
     animation: bounce 2s infinite ease-in-out;
 }
 
@@ -268,7 +272,8 @@ main {
     box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
     opacity: 0;
     transform: translateY(30px);
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.6s 0.1s ease-out forwards; /* Added slight delay */
+    position: relative; /* Needed for pseudo-elements */
 }
 
 @keyframes fadeInUp {
@@ -309,8 +314,13 @@ main {
     border-radius: var(--border-radius-sharp);
     font-size: 1.2rem;
     background-color: #fff;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05);
+    background: linear-gradient(to bottom, #ffffff, #f7f7f7); /* Added gradient from later rule */
+    /* Merged styles from later rule */
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 
+                0 2px 4px rgba(0,0,0,0.1),
+                inset 2px 2px 4px rgba(0,0,0,0.05);
 }
 
 #butter-amount {
@@ -328,7 +338,8 @@ main {
 
 #butter-amount:focus, #butter-unit:focus {
     border-color: var(--action-color);
-    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), 0 0 0 3px rgba(255, 112, 67, 0.3);
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05), 0 0 0 3px rgba(255, 112, 67, 0.3),
+                 inset 0 1px 0 rgba(255,255,255,0.8); /* Keep inset white highlight */
     transform: translateY(-2px);
 }
 
@@ -347,7 +358,7 @@ main {
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
 }
@@ -376,6 +387,7 @@ main {
 #start-experiment-btn:active {
     transform: translate(var(--shadow-offset) / 2, var(--shadow-offset) / 2);
     box-shadow: calc(var(--shadow-offset) / 2) calc(var(--shadow-offset) / 2) 8px var(--shadow-color);
+    transition-duration: 0.1s; /* Faster active transition */
 }
 
 .warning {
@@ -404,7 +416,7 @@ main {
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--border-radius-sharp);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; /* Specific transitions */
     background-color: var(--bg-color);
     box-shadow: var(--shadow-offset) var(--shadow-offset) 12px var(--shadow-color);
     display: flex;
@@ -425,7 +437,26 @@ main {
     background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
     opacity: 0.7;
     z-index: 0;
+    transition: opacity 0.3s ease;
 }
+
+/* Add chocolate chip spots to cookie cards */
+.cookie-option::after { /* Combined with shine effect logic later */
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: radial-gradient(var(--primary-brown) 10%, transparent 10%),
+                      radial-gradient(var(--primary-brown) 10%, transparent 10%);
+    background-position: 0 0, 30px 30px;
+    background-size: 60px 60px;
+    opacity: 0.05;
+    z-index: 0;
+    transition: opacity 0.3s ease;
+}
+
 
 .cookie-option img {
     width: 280px; /* Much larger images */
@@ -434,11 +465,13 @@ main {
     border-radius: 50%;
     margin: 0 auto 30px auto;
     border: var(--border-width) solid var(--border-color);
-    transition: transform 0.4s ease;
+    /* transition moved to .header-comparison-image (shared) */
     padding: 8px;
     background-color: transparent; /* Transparent background */
     position: relative;
     z-index: 1;
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2));
+    transition: transform 0.4s ease, filter 0.4s ease, border-color 0.3s ease; /* Specific */
 }
 
 .cookie-option h3 {
@@ -467,6 +500,11 @@ main {
 
 .cookie-option:hover img {
     transform: scale(1.05) rotate(5deg);
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+.cookie-option:hover::before, .cookie-option:hover::after {
+    opacity: 0.1; /* Slightly fade pattern/chips on hover if desired */
 }
 
 .cookie-option.selected {
@@ -479,25 +517,37 @@ main {
 .cookie-option.selected img {
     border-color: var(--action-color);
     transform: scale(1.02);
+    filter: drop-shadow(0 8px 12px rgba(255, 112, 67, 0.4));
 }
 
-/* Add subtle shine effect to selected cookie */
+/* Add subtle shine effect to selected cookie - Modified to use ::after */
 .cookie-option.selected::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
-    opacity: 0.6;
-    z-index: 0;
+    /* Keep chip background */
+    background-image: radial-gradient(var(--primary-brown) 10%, transparent 10%),
+                      radial-gradient(var(--primary-brown) 10%, transparent 10%),
+                      /* Add shine on top */
+                      radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    background-position: 0 0, 30px 30px, 50% 50%; /* Center the shine */
+    background-size: 60px 60px, 60px 60px, 200% 200%; /* Control shine size */
+    opacity: 1; /* Ensure it's visible */
+    /* Reset chip opacity potentially */
+     background-blend-mode: overlay; /* Experiment with blend modes */
+
+    /* Animation */
     animation: shine 2s infinite linear;
+    top: 0; /* Reset positioning if needed */
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 @keyframes shine {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    /* Rotating the shine gradient - adjust if needed */
+     0% { background-position: 0 0, 30px 30px, 50% 50%; } /* Initial state */
+     /* This rotation might be too complex with multiple backgrounds.
+        Maybe just animate opacity or position of the shine layer?
+        Let's simplify - just keep the chip pattern static and overlay the shine */
+     /* Alternative: animate the shine position or opacity instead of rotation */
 }
 
 /* --- Recipe Display Section --- */
@@ -534,6 +584,7 @@ main {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    border: 1px solid var(--highlight-border); /* Add subtle border */
 }
 
 .ingredients-title, .prep-tech-title, .steps-title {
@@ -579,7 +630,9 @@ main {
     color: var(--text-color);
 }
 
-.ingredient-list .unit-g, .ingredient-list .unit-cups {
+.ingredient-list .unit-notes, /* Use a class for notes like (large) */
+.ingredient-list .unit-g,
+.ingredient-list .unit-cups {
     font-size: 0.95em;
     color: var(--primary-brown);
     margin-left: 5px;
@@ -634,7 +687,24 @@ main {
     padding-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    display: flex; /* Use flex for icon alignment */
+    align-items: center;
 }
+
+.pro-tip h4::before, .note h4::before { /* Added icons via CSS */
+    margin-right: 10px;
+    font-size: 1.5rem; /* Adjust icon size */
+    line-height: 1; /* Prevent extra space */
+}
+
+.pro-tip h4::before {
+     content: "💡"; /* Lightbulb emoji */
+}
+
+.note h4::before {
+     content: "📝"; /* Note emoji */
+}
+
 
 #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 {
     font-family: 'Caveat', cursive;
@@ -711,7 +781,7 @@ main {
 .easter-egg .pro-tip {
     background-color: var(--bg-color);
     border-left-color: var(--action-color);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px rgba(41, 98, 255, 0.2);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 12px rgba(255, 112, 67, 0.2); /* Adjusted shadow to match action color */
 }
 
 .easter-egg .pro-tip h4 {
@@ -766,7 +836,7 @@ main {
     border-radius: 6px;
     text-decoration: none;
     border: 1px solid #1b5e20;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Added transition */
 }
 
 .conclusion a:hover {
@@ -793,32 +863,54 @@ html[dir="rtl"] {
     }
 
     .toggle-container { left: 20px; right: auto; }
-    #butter-amount { text-align: left; }
+    #butter-amount { text-align: left; } /* Should be right for RTL numbers? Test needed */
     .ingredient-list ul, .recipe-steps ol { padding-left: 0; padding-right: 30px; }
     .ingredient-list strong { margin-left: 15px; margin-right: 0; }
-    .ingredient-list .unit-g, .ingredient-list .unit-cups { margin-left: 0; margin-right: 5px; }
+    .ingredient-list .unit-notes, /* RTL spacing */
+    .ingredient-list .unit-g, 
+    .ingredient-list .unit-cups { margin-left: 0; margin-right: 5px; }
 
     .pro-tip, .note { 
-        border-left: var(--border-width) solid var(--border-color); 
-        border-right: 8px solid var(--highlight-border); 
-        border-left-width: var(--border-width);
+        border-left: var(--border-width) solid var(--border-color); /* Reset left */
+        border-right: 8px solid var(--highlight-border); /* Add right */
+        border-left-width: var(--border-width); /* Ensure left is standard */
     }
     .note { border-right-color: var(--secondary-highlight-border); }
     .easter-egg .pro-tip { 
-        border-left: var(--border-width) solid var(--border-color); 
-        border-right-color: var(--action-color); 
+        border-left: var(--border-width) solid var(--border-color); /* Reset left */
+        border-right: 8px solid var(--action-color); /* Add right */
+    }
+    
+    .pro-tip h4::before, .note h4::before { /* RTL icon spacing */
+         margin-right: 0;
+         margin-left: 10px;
+    }
+    
+    .card::before { /* Decorative element RTL */
+        right: auto;
+        left: 10px;
+    }
+
+    .ingredient-list li:hover { /* RTL hover effect */
+        transform: translateX(-5px);
     }
 }
 
 /* --- Media Queries --- */
 @media (max-width: 1000px) {
     .cookie-options {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* Changed to 2 columns earlier on larger screens */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* More flexible */
+        gap: 30px;
     }
     
     .cookie-option img {
         width: 220px;
         height: 220px;
+    }
+    
+    main {
+        padding: 60px 20px 50px 20px; /* Slightly adjust padding */
     }
 }
 
@@ -826,72 +918,107 @@ html[dir="rtl"] {
     :root {
         --border-width: 2px;
         --shadow-offset: 4px;
+        --border-radius-sharp: 10px; /* Slightly smaller radius */
+        --border-radius-soft: 20px;
     }
     
     .card { padding: 30px 25px; margin-bottom: 40px; }
-    main { padding: 50px 20px 40px 20px; }
-    .immersive-header { padding: 70px 20px 40px 20px; }
+    main { padding: 50px 15px 40px 15px; } /* Reduce side padding */
+    .immersive-header { padding: 70px 15px 40px 15px; }
     .header-comparison-image { max-height: 50vh; }
     
     h1 { font-size: clamp(2.2rem, 7vw, 3rem); }
     h2 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
     
-    .cookie-option img { width: 200px; height: 200px; }
+    .cookie-options {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust minmax */
+    }
     
+    .cookie-option img { width: 200px; height: 200px; }
 
-#start-experiment-btn { padding: 14px 35px; font-size: 1.2rem; }
+    #start-experiment-btn { padding: 14px 35px; font-size: 1.2rem; }
     .toggle-container button { padding: 8px 16px; font-size: 0.9rem; box-shadow: 3px 3px 6px var(--shadow-color); }
     .toggle-container button:hover { box-shadow: 4px 4px 8px var(--shadow-color); }
     .toggle-container button:active { box-shadow: 1px 1px 3px var(--shadow-color); }
     
-    .pro-tip, .note { padding: 25px 30px; }
+    .pro-tip, .note { padding: 25px 20px; } /* Reduce padding */
     .pro-tip h4, .note h4 { font-size: 1.4rem; }
     #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 { font-size: 1.8rem; }
     
     .easter-egg { padding: 35px 25px; }
+    
+    .ingredients-title, .prep-tech-title, .steps-title {
+        font-size: 1.9rem; /* Adjust size */
+    }
+    .ingredients-title::before, .prep-tech-title::before, .steps-title::before {
+        font-size: 1.7rem; /* Adjust size */
+    }
+
 }
 
 @media (max-width: 480px) {
-    .card { padding: 25px 20px; }
-    .header-comparison-image { max-height: 45vh; padding: 5px; }
-    .cookie-option img { width: 150px; height: 150px; padding: 4px; }
-    .ingredient-list strong { min-width: 100px; margin-right: 10px; }
-    html[dir="rtl"] .ingredient-list strong { margin-left: 10px; margin-right: 0; }
-    footer { padding: 30px; font-size: 1rem; }
-    
+     :root {
+         --border-radius-sharp: 8px;
+         --border-radius-soft: 16px;
+     }
+    .card { padding: 25px 15px; } /* Reduce padding more */
+    main { padding: 40px 10px 30px 10px; }
+    .immersive-header { padding: 60px 10px 30px 10px; }
+    .header-comparison-image { max-height: 40vh; padding: 5px; } /* Reduce height and padding */
+
     .cookie-options {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Single column */
         gap: 30px;
     }
     
     .cookie-option {
         padding: 30px 20px;
     }
+
+    .cookie-option img { width: 160px; height: 160px; padding: 4px; margin-bottom: 20px; } /* Smaller image */
+    
+    .input-group { flex-direction: column; gap: 10px; align-items: stretch; } /* Stack inputs */
+    #butter-amount { width: 100%; text-align: center; }
+    #butter-unit { width: 100%; text-align: center; }
+
+
+    .ingredient-list strong { min-width: 90px; margin-right: 8px; } /* Adjust spacing */
+    html[dir="rtl"] .ingredient-list strong { margin-left: 8px; margin-right: 0; }
+    footer { padding: 25px 15px; font-size: 1rem; }
     
     .immersive-header h1::after,
     .input-section h2::after,
     .selection-section h2::after,
     .recipe-section h2::after,
     .conclusion h2::after {
-        width: 60px;
+        width: 50px; /* Smaller underlines */
         height: 3px;
+        bottom: -8px;
     }
     
     .ingredients-title, .prep-tech-title, .steps-title {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
     }
     
     .ingredients-title::before, .prep-tech-title::before, .steps-title::before {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
     
     .pro-tip, .note {
-        padding: 20px;
+        padding: 20px 15px;
+        font-size: 1rem; /* Slightly smaller text */
     }
+    .pro-tip h4, .note h4 { font-size: 1.3rem; }
+     #stuffed-easter-egg .pro-tip h4, #chocolate-recommendation h4 { font-size: 1.6rem; }
+     
+     .toggle-container { top: 10px; right: 10px; gap: 8px; }
+     html[dir="rtl"] .toggle-container { left: 10px; right: auto; }
+     .toggle-container button { padding: 6px 12px; font-size: 0.8rem; }
+
 }
 
 /* Cookie Background Elements */
-.cookie-crumb {
+.cookie-crumb { /* Consider removing if not used or implement JS to add them */
     position: absolute;
     width: 8px;
     height: 8px;
@@ -902,7 +1029,7 @@ html[dir="rtl"] {
     z-index: 0;
 }
 
-.immersive-header::before {
+.immersive-header::before { /* Decorative background shapes */
     content: "";
     position: absolute;
     width: 400px;
@@ -910,12 +1037,13 @@ html[dir="rtl"] {
     background: radial-gradient(circle, var(--highlight-bg) 0%, transparent 70%);
     top: 15%;
     right: -100px;
-    opacity: 0.7;
+    opacity: 0.4; /* Reduced opacity */
     border-radius: 50%;
     z-index: 1;
+    pointer-events: none; /* Ensure they don't interfere */
 }
 
-.immersive-header::after {
+.immersive-header::after { /* Decorative background shapes */
     content: "";
     position: absolute;
     width: 300px;
@@ -923,53 +1051,17 @@ html[dir="rtl"] {
     background: radial-gradient(circle, var(--highlight-bg) 0%, transparent 70%);
     bottom: 10%;
     left: -80px;
-    opacity: 0.5;
+    opacity: 0.3; /* Reduced opacity */
     border-radius: 50%;
     z-index: 1;
+     pointer-events: none; /* Ensure they don't interfere */
 }
 
-/* Add chocolate chip spots to cookie cards */
-.cookie-option::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: radial-gradient(var(--primary-brown) 10%, transparent 10%),
-                      radial-gradient(var(--primary-brown) 10%, transparent 10%);
-    background-position: 0 0, 30px 30px;
-    background-size: 60px 60px;
-    opacity: 0.05;
-    z-index: 0;
-}
-
-/* Enhance Cookie Images */
-.cookie-option img {
-    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2));
-    transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.cookie-option:hover img {
-    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
-}
-
-.cookie-option.selected img {
-    filter: drop-shadow(0 8px 12px rgba(255, 112, 67, 0.4));
-}
-
-/* Modern button styles */
-#butter-amount, #butter-unit {
-    border-radius: var(--border-radius-sharp);
-    background: linear-gradient(to bottom, #ffffff, #f7f7f7);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 
-                0 2px 4px rgba(0,0,0,0.1);
-}
 
 /* Add subtle animations */
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-8px); } /* Reduced float amount */
     100% { transform: translateY(0px); }
 }
 
@@ -978,17 +1070,24 @@ html[dir="rtl"] {
 }
 
 /* Additional decorative elements */
-.card::before {
+.card::before { /* Small decorative dot on cards */
     content: "";
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, var(--accent-brown) 0%, transparent 70%);
-    opacity: 0.1;
+    width: 30px; /* Smaller */
+    height: 30px; /* Smaller */
+    background: radial-gradient(circle, var(--accent-brown) 0%, transparent 60%); /* Adjusted gradient */
+    opacity: 0.08; /* Reduced opacity */
     border-radius: 50%;
     z-index: 0;
+     pointer-events: none;
+     transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 0.15;
+    transform: scale(1.1);
 }
 
 /* Recipe section enhancements */
@@ -997,36 +1096,25 @@ html[dir="rtl"] {
     padding-left: 5px;
     transition: transform 0.2s ease;
 }
+html[dir="rtl"] .ingredient-list li { padding-left: 0; padding-right: 5px; }
+
 
 .ingredient-list li:hover {
     transform: translateX(5px);
 }
+html[dir="rtl"] .ingredient-list li:hover { transform: translateX(-5px); }
+
 
 .recipe-steps li {
     position: relative;
     transition: background-color 0.3s ease;
-    padding: 5px;
+    padding: 8px 10px; /* Added padding for hover effect */
     border-radius: var(--border-radius-sharp);
+    margin-left: -10px; /* Counteract padding */
+    margin-right: -10px;
 }
+html[dir="rtl"] .recipe-steps li { margin-left: -10px; margin-right: -10px; }
 
 .recipe-steps li:hover {
-    background-color: rgba(255, 251, 235, 0.5);
-}
-
-/* Enhance pro tips with icons */
-.pro-tip h4::before {
-    content: "💡"; /* Lightbulb emoji */
-    margin-right: 10px;
-}
-
-.note h4::before {
-    content: "📝"; /* Note emoji */
-    margin-right: 10px;
-}
-
-/* Add smooth transitions for all interactive elements */
-* {
-    transition-property: color, background-color, border-color, transform, box-shadow, opacity;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
+    background-color: rgba(255, 251, 235, 0.6); /* Slightly more visible hover */
 }
