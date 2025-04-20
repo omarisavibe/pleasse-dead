@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Elements ---
     // (Same as V3, but grab new containers)
-    const loaderWrapper = document.querySelector('.loader-wrapper');
     const butterAmountInput = document.getElementById('butter-amount');
     const butterUnitSelect = document.getElementById('butter-unit');
     const startExperimentBtn = document.getElementById('start-experiment-btn');
