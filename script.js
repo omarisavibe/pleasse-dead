@@ -109,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             unitGrams: 'Grams (g)',
             unitCups: 'Cups (cups)',
             // Butter Input
+            egg: 'egg',
+            eggs: 'eggs',
             butterVarTitle: 'Step 1: Butter Up! 🧈',
             butterVarDesc: 'Great cookies need the perfect amount of butter. So, how much of this golden goodness are you using? Be precise, chef! 👩‍🍳',
             grams: 'grams',
@@ -254,6 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
             unsaltedButter: 'زبدة ‏الذهبية',
             granulatedSugar: 'سكر حبيبات',
             lightBrownSugar: 'سكر بني',
+            egg: 'بيضة', // singular: "egg"
+            eggs: 'بيض', // plural: "eggs"
             toastedMilkPowder: 'بودرة حليب محمص',
             largeEggs: 'بيض كبير (بدرجة حرارة الغرفة، لو سمحت) 🥚',
             vanillaExtract: 'فانيليا',
