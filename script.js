@@ -391,45 +391,176 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
        // Format ingredient amount based on unit system
+    // --- Functions --- (Keep any functions above this line)
+
+    // Convert input butter to grams
+    function getBaseButterInGrams() {
+        const amount = parseFloat(butterAmountInput.value);
+        const unit = butterUnitSelect.value;
+        if (isNaN(amount) || amount <= 0) return 0;
+
+        let grams = (unit === 'cups') ? amount * GRAMS_PER_CUP_BUTTER : amount;
+
+        // Basic validation (e.g., minimum 100g)
+        if (grams < 100) {
+            butterWarning.style.display = 'block';
+            butterWarning.textContent = langStrings[currentLanguage].butterWarning;
+            return 0;
+        } else {
+            butterWarning.style.display = 'none';
+            return grams;
+        }
+    }
+
+    // Calculate scaled recipe
+    function calculateScaledRecipe(butterInGrams, cookieType) {
+        const base = baseRecipes[cookieType];
+        if (!base) return null;
+
+        const scalingFactor = butterInGrams / base.baseButter;
+        const scaledIngredients = {};
+
+        for (const key in base.ingredients) {
+            scaledIngredients[key] = {
+                grams: base.ingredients[key][0] * scalingFactor,
+                unitType: base.ingredients[key][1] // Keep track of type for conversion
+            };
+        }
+
+        let yieldValue;
+        if (cookieType === 'thick') {
+            // Calculate yield based on total dough weight and target cookie weight
+            let totalDoughWeight = butterInGrams; // Start with butter
+            for (const key in scaledIngredients) {
+                 // Add scaled ingredient weights, EXCLUDING the base butter we already added
+                 // NOTE: This assumes 'unsaltedButter' isn't listed explicitly in scaledIngredients
+                 // If it IS, we need to avoid double-counting. Let's refine the total dough calculation.
+                 // A safer way: Sum *all* ingredients *including* base butter.
+                 // Let's recalculate totalDoughWeight based on scaled ingredients + input butter
+                 totalDoughWeight = butterInGrams; // User input butter
+                 for (const key in scaledIngredients) {
+                     // Add all *other* ingredients (sugar, flour, eggs etc.)
+                     // We need a way to ensure we don't add the scaled butter amount if it exists
+                     // Let's assume scaledIngredients doesn't contain 'butter' as a key
+                     totalDoughWeight += scaledIngredients[key].grams;
+                 }
+                 // If 'unsaltedButter' IS a key in ingredients (like for tracking hydration water maybe),
+                 // then the sum should just be over scaledIngredients and not add butterInGrams separately.
+                 // Let's check the structure. It seems 'baseButter' is separate. OK.
+                 // So, summing scaledIngredients should be correct IF 'prepWater' isn't counted as 'butter'. It isn't. Phew.
+                 // BUT wait, the scaledIngredients *are* based on the base recipe which *includes* butter.
+                 // The scaling factor is applied to everything.
+                 // So, the total dough weight IS the sum of all scaledIngredients grams.
+                 totalDoughWeight = 0;
+                 for (const key in scaledIngredients) {
+                    totalDoughWeight += scaledIngredients[key].grams;
+                 }
+                 // We also need to add the base butter itself to the dough weight!
+                 totalDoughWeight += butterInGrams;
+
+                 // Let's recalculate yield based on this total dough weight
+                // console.log("Total Dough Weight (Thick):", totalDoughWeight);
+                // console.log("Base Cookie Size Grams:", base.cookieSizeGrams);
+                yieldValue = Math.max(1, Math.round(totalDoughWeight / base.cookieSizeGrams)); // Ensure at least 1
+                // console.log("Calculated Yield (Thick):", yieldValue);
+
+            } else {
+                 // Calculate yield based on scaling factor for classic/thin
+                 yieldValue = Math.max(1, Math.round(base.yieldPerBase * scalingFactor)); // Ensure at least 1
+            }
+
+
+        } else {
+            yieldValue = Math.max(1, Math.round(base.yieldPerBase * scalingFactor)); // Ensure at least 1
+        }
+
+
+        return {
+            ingredients: scaledIngredients,
+            yield: yieldValue,
+            notesKey: base.notes,
+            stepsKey: base.steps,
+            prepTechKeys: base.prepTech,
+            isThick: cookieType === 'thick' // Flag for easter egg
+        };
+    }
+
+
+    // Format ingredient amount based on unit system
+    // **** THIS IS THE ENTIRE UPDATED FUNCTION ****
     function formatIngredient(grams, unitType, lang, unitSystem) {
         const T = langStrings[lang]; // Translation helper
         let outputText = ''; // Use a single output variable
 
-        // Special case for Eggs - Always show count
+        // --- Special handling for Eggs ---
         if (unitType === 'egg') {
-            let numEggs = Math.round(grams / GRAMS_PER_LARGE_EGG);
-            if (numEggs < 1) numEggs = 1; // Ensure at least 1 egg if grams > 0
-            // Use singular or plural from langStrings
-            const eggUnitText = (numEggs === 1) ? T.egg : T.eggs;
-            outputText = `${numEggs} ${eggUnitText}`;
+            if (grams <= 0) {
+                return `0 ${T.eggs || 'eggs'}`; // Handle zero grams case
+            }
+            // Calculate the precise number of eggs
+            const exactNumEggs = grams / GRAMS_PER_LARGE_EGG;
+
+            // Round to the nearest half (0.5)
+            let displayNum = (Math.round(exactNumEggs * 2) / 2);
+
+            // Ensure a minimum practical value if some grams are present
+            if (displayNum === 0 && grams > 0) {
+                displayNum = 0.5; // If calculated is very small but > 0, show 0.5
+            }
+
+            // Format to string, removing trailing .0 if it's a whole number
+            let displayNumStr = displayNum.toFixed(1);
+            displayNumStr = displayNumStr.endsWith('.0') ? displayNumStr.slice(0, -2) : displayNumStr;
+
+            // Determine singular or plural based on the *numerical value*
+            // Use singular for 1 or less (including 0.5), plural for more than 1
+            const eggUnitText = (displayNum <= 1) ? (T.egg || 'egg') : (T.eggs || 'eggs');
+
+            outputText = `${displayNumStr} ${eggUnitText}`;
             // Return immediately for eggs, bypassing other unit logic
             return outputText;
         }
 
         // --- Proceed with other unit types ---
+        if (grams < 0.1) grams = 0; // Treat negligible amounts as zero for display
+
         let metricText = `${Math.round(grams)} g`;
         let imperialText = '';
         let cupsText = ''; // For Arabic display (if applicable)
 
         // --- Imperial Calculation (Approximate) ---
-        let imperialAmount = '';
+        let imperialAmountStr = ''; // Use string representation
         let imperialUnit = '';
         switch (unitType) {
             case 'butter':
             case 'sugar': // Granulated and Brown are similar enough for approx cups
             case 'chocolate':
                 const cupEq = unitType === 'butter' ? GRAMS_PER_CUP_BUTTER : (unitType === 'sugar' ? GRAMS_PER_CUP_GRAN_SUGAR : GRAMS_PER_CUP_CHOC_CHIPS);
-                imperialAmount = (grams / cupEq).toFixed(2);
-                // Remove trailing ".00"
-                imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
-                imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups; // Use translations for cup/cups
-                cupsText = `${imperialAmount} ${imperialUnit}`; // For potential AR display
+                if (cupEq > 0) {
+                    let imperialAmount = (grams / cupEq);
+                    imperialAmountStr = imperialAmount.toFixed(2);
+                    // Remove trailing ".00"
+                    imperialAmountStr = imperialAmountStr.endsWith('.00') ? imperialAmountStr.slice(0, -3) : imperialAmountStr;
+                    // Use translations for cup/cups
+                    imperialUnit = (parseFloat(imperialAmountStr) === 1) ? (T.cup || 'cup') : (T.cups || 'cups');
+                    cupsText = `${imperialAmountStr} ${imperialUnit}`; // For potential AR display
+                } else {
+                     imperialAmountStr = 'N/A'; // Avoid division by zero if constants are missing
+                     imperialUnit = '';
+                }
+
                 break;
             case 'flour':
-                imperialAmount = (grams / GRAMS_PER_CUP_FLOUR).toFixed(2);
-                imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
-                imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups;
-                cupsText = `${imperialAmount} ${imperialUnit}`;
+                 if (GRAMS_PER_CUP_FLOUR > 0) {
+                     let imperialAmount = (grams / GRAMS_PER_CUP_FLOUR);
+                    imperialAmountStr = imperialAmount.toFixed(2);
+                    imperialAmountStr = imperialAmountStr.endsWith('.00') ? imperialAmountStr.slice(0, -3) : imperialAmountStr;
+                    imperialUnit = (parseFloat(imperialAmountStr) === 1) ? (T.cup || 'cup') : (T.cups || 'cups');
+                    cupsText = `${imperialAmountStr} ${imperialUnit}`;
+                 } else {
+                     imperialAmountStr = 'N/A';
+                     imperialUnit = '';
+                 }
                 break;
             case 'salt':
             case 'bakingSoda':
@@ -454,6 +585,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     useTbsp = true;
                 }
 
+                 if (tspEq <= 0) { // Prevent division by zero
+                     imperialAmountStr = 'N/A';
+                     imperialUnit = '';
+                     break;
+                 }
+
                 let baseAmount = grams / tspEq; // Amount in basic unit (tsp)
 
                  // Convert to Tbsp if preferred and applicable
@@ -461,45 +598,53 @@ document.addEventListener('DOMContentLoaded', () => {
                      baseAmount = baseAmount / 3; // Convert tsp amount to tbsp amount
                      unitNameSingular = 'Tbsp';
                      unitNamePlural = 'Tbsp';
-                 } else { // Otherwise stick to tsp
+                 } else { // Otherwise stick to tsp or handle fractions
                      unitNameSingular = 'tsp';
                      unitNamePlural = 'tsps';
+                     useTbsp = false; // Ensure we use tsp units below if not using Tbsp
                  }
 
 
                 if (baseAmount < 0.1) baseAmount = 0; // Avoid tiny fractions
 
-                if (baseAmount < 1 && baseAmount > 0) { // Handle fractions
-                    if (baseAmount >= 0.875) imperialAmount = '⅞';
-                    else if (baseAmount >= 0.7) imperialAmount = '¾';
-                    else if (baseAmount >= 0.6) imperialAmount = '⅔';
-                    else if (baseAmount >= 0.4) imperialAmount = '½';
-                    else if (baseAmount >= 0.3) imperialAmount = '⅓';
-                    else if (baseAmount >= 0.2) imperialAmount = '¼';
-                    else if (baseAmount >= 0.1) imperialAmount = '⅛';
-                    else imperialAmount = 'pinch'; // Only if really small
+                if (baseAmount > 0 && baseAmount < 1) { // Handle fractions (tsp or tbsp)
+                    // More precise fraction check
+                    if (baseAmount >= 0.95) imperialAmountStr = '1'; // If very close to 1, treat as 1
+                    else if (baseAmount >= 0.85) imperialAmountStr = '⅞'; // 0.875
+                    else if (baseAmount >= 0.70) imperialAmountStr = '¾'; // 0.75
+                    else if (baseAmount >= 0.60) imperialAmountStr = '⅔'; // 0.66
+                    else if (baseAmount >= 0.45) imperialAmountStr = '½'; // 0.5
+                    else if (baseAmount >= 0.30) imperialAmountStr = '⅓'; // 0.33
+                    else if (baseAmount >= 0.20) imperialAmountStr = '¼'; // 0.25
+                    else if (baseAmount >= 0.1) imperialAmountStr = '⅛';  // 0.125
+                    else imperialAmountStr = 'pinch'; // Only if really small
                     imperialUnit = unitNameSingular; // Use singular for fractions
                 } else {
-                    // Format whole/decimal numbers (e.g., 1, 1.5, 2)
-                     imperialAmount = parseFloat(baseAmount.toFixed(1)).toString(); // toFixed(1) then parse and back to string removes trailing .0
+                    // Format whole/decimal numbers (e.g., 1, 1.5, 2) - round to 1 decimal place
+                     imperialAmountStr = parseFloat(baseAmount.toFixed(1)).toString(); // toFixed(1) then parse and back to string removes trailing .0
                     imperialUnit = (baseAmount > 0 && baseAmount <= 1) ? unitNameSingular : unitNamePlural;
                 }
-                if (imperialAmount === 'pinch') imperialUnit = '';
+
+                if (imperialAmountStr === 'pinch') imperialUnit = '';
+                if (imperialAmountStr === '1') imperialUnit = unitNameSingular; // Ensure singular if exactly 1
+
                  // Special label for prep water
                  if(unitType === 'prepWater') imperialUnit += ' water/milk';
                 break;
-             // case 'egg': Handled above and returns immediately
-             //    break;
+
             default: // Fallback for unknown types
-                imperialAmount = Math.round(grams);
+                imperialAmountStr = Math.round(grams).toString();
                 imperialUnit = 'g';
         }
-         // Avoid displaying unit if amount is 0
-         if (parseFloat(imperialAmount) === 0) {
-             imperialText = `0 ${imperialUnit}`; // Or just "0"?
+
+         // Avoid displaying unit if amount is 0 or N/A
+         if (imperialAmountStr === 'N/A' || parseFloat(imperialAmountStr) === 0) {
+             imperialText = `0 ${imperialUnit}`; // Or just "0"? Let's keep unit for clarity
+              if (imperialAmountStr === 'N/A') imperialText = 'N/A';
          } else {
-             imperialText = `${imperialAmount} ${imperialUnit}`;
+             imperialText = `${imperialAmountStr} ${imperialUnit}`;
          }
+
 
         // --- Return based on language and unit system ---
         if (lang === 'en') {
@@ -507,12 +652,382 @@ document.addEventListener('DOMContentLoaded', () => {
         } else { // Arabic
             // Always show grams, optionally show cups if applicable for certain types
             outputText = `<span class="unit-g">${metricText}</span>`;
-            if (cupsText && (unitType === 'butter' || unitType === 'sugar' || unitType === 'flour' || unitType === 'chocolate')) {
+             // Only show cups if cupsText was successfully generated and it's a relevant unit type
+            if (cupsText && ['butter', 'sugar', 'flour', 'chocolate'].includes(unitType)) {
                  outputText += ` <span class="unit-cups">(${cupsText})</span>`;
             }
         }
          return outputText;
     }
+    // **** END OF UPDATED FUNCTION ****
+
+    // Display the recipe
+    function displayRecipe(recipeData) {
+        if (!recipeData) return;
+
+        const lang = currentLanguage;
+        const units = currentUnitSystem;
+        const T = langStrings[lang]; // Translation helper
+
+        // Find the title matching the selected cookie type key ('classic', 'thick', 'thin')
+        const cookieTitleKey = `${selectedCookieType}Title`;
+        const cookieName = T[cookieTitleKey] || selectedCookieType; // Fallback to key name
+        const yieldNum = recipeData.yield;
+        let yieldText = '';
+        if (selectedCookieType === 'thick') {
+            yieldText = `${yieldNum} ${yieldNum === 1 ? T.largeCookie : T.largeCookies}`;
+        } else {
+            yieldText = `${yieldNum} ${yieldNum === 1 ? T.cookie : T.cookies}`;
+        }
+
+        let ingredientsHtml = `<h3 class="ingredients-title">${T.ingredientsTitle}</h3><ul>`;
+        // Add the user's butter amount first
+        const butterName = T['unsaltedButter'] || 'Brown Butter'; // Get translated name
+        const formattedButterAmount = formatIngredient(baseButterGrams, 'butter', lang, units);
+        ingredientsHtml += `<li><strong>${formattedButterAmount}</strong> ${butterName}</li>`;
+
+        // Add the rest of the scaled ingredients
+        for (const key in recipeData.ingredients) {
+            // Skip adding butter again if it's somehow in the scaled list
+            // (Our base recipes don't list butter under 'ingredients', so this check isn't strictly needed but safe)
+            // if (key.toLowerCase().includes('butter')) continue;
+            // A better check might be needed if 'unsaltedButter' becomes a key
+
+             // Specifically skip the prepWater calculation here as it's added separately based on user butter
+             // Let's refine: the prepWater *should* scale with the recipe. It's part of the base ratios.
+             // Let's keep it in the loop.
+
+            const item = recipeData.ingredients[key];
+            const ingredientName = T[key] || key; // Use translation or key as fallback
+            const formattedAmount = formatIngredient(item.grams, item.unitType, lang, units);
+            ingredientsHtml += `<li><strong>${formattedAmount}</strong> ${ingredientName}</li>`;
+        }
+        ingredientsHtml += `</ul>`;
+
+        let prepTechHtml = `<h3 class="prep-tech-title">${T.prepTitle}</h3>`;
+        recipeData.prepTechKeys.forEach(key => {
+             // Check if the translation exists before adding the section
+             const titleKey = `prepTechTitle_${key}`;
+             const descKey = `prepTechDesc_${key}`;
+             if (T[titleKey] && T[descKey]) {
+                 prepTechHtml += `<div class="pro-tip note">
+                                    <h4>${T[titleKey]}</h4>
+                                    <p>${T[descKey]}</p>
+                                  </div>`;
+             }
+        });
+
+        let stepsHtml = `<h3 class="steps-title">${T.stepsTitle}</h3><ol>`;
+        const stepsString = T[recipeData.stepsKey] || ''; // Get steps string, default to empty
+        const stepsArray = stepsString.split('\n'); // Split steps string into array
+        stepsArray.forEach(step => {
+            const trimmedStep = step.trim();
+            if (trimmedStep) { // Avoid empty lines
+                // Basic formatting for bolding: finding text between **
+                let formattedStep = trimmedStep.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                // Remove leading number/dot/space (like "1. ", "١. ")
+                formattedStep = formattedStep.replace(/^[\d١٢٣٤٥٦٧٨٩٠]+\.\s*/, '');
+                stepsHtml += `<li>${formattedStep}</li>`;
+            }
+        });
+        stepsHtml += `</ol>`;
+
+        let notesHtml = '';
+        if (T[recipeData.notesKey]) { // Only add notes if translation exists
+             notesHtml = `<div class="pro-tip"><h4>${T.proTipsTitle}</h4><p>${T[recipeData.notesKey]}</p></div>`;
+        }
+
+
+        // --- Easter Egg & Chocolate Rec ---
+         let easterEggHtml = '';
+         if (recipeData.isThick && T.stuffedTitle) { // Check if Thick and translation exists
+             easterEggHtml = `
+                 <div id="stuffed-easter-egg" class="pro-tip special-feature">
+                     <h3>${T.stuffedTitle}</h3>
+                     <p>${T.stuffedCongrats}</p>
+                     <p><strong>${T.stuffedHowTo}</strong></p>
+                     <h4>${T.pistachioTipTitle}</h4>
+                     <p>${T.pistachioTipDesc} <a href="https://www.instagram.com/asmfoodsegypt/" target="_blank" rel="noopener noreferrer">${T.pistachioTipLink}</a></p>
+                 </div>
+             `;
+         }
+
+        let chocolateRecHtml = '';
+        if (T.chocoTipTitle) { // Check if translation exists
+            chocolateRecHtml = `
+                 <div id="chocolate-recommendation" class="pro-tip note">
+                    <h4>${T.chocoTipTitle}</h4>
+                    <p>${T.chocoTipDesc} <a href="https://www.facebook.com/groups/1742938295930779/search/?q=dropsy" target="_blank" rel="noopener noreferrer">${T.chocoTipLink}</a></p>
+                    <p><em>${T.chocoTipMilk}</em></p>
+                </div>
+            `;
+        }
+
+         // --- Conclusion ---
+         let conclusionHtml = '';
+         if (T.conclusionTitle) { // Check if translation exists
+             conclusionHtml = `
+                 <div class="conclusion">
+                     <h3>${T.conclusionTitle}</h3>
+                     <p>${T.conclusionDesc}</p>
+                     <p>${T.conclusionTag} <a href="https://www.instagram.com/thematterscientist/" target="_blank" rel="noopener noreferrer">@thematterscientist</a></p>
+                     <p><strong>${T.conclusionGoForth}</strong></p>
+                 </div>
+             `;
+         }
+
+
+        recipeContent.innerHTML = `
+            <h2>${T.recipeTitle.replace('{cookieName}', cookieName)}</h2>
+            <p class="recipe-yield">${T.approxYield} ${yieldText}</p>
+            ${prepTechHtml}
+            ${ingredientsHtml}
+            ${stepsHtml}
+            ${notesHtml}
+            ${easterEggHtml}
+            ${chocolateRecHtml}
+            ${conclusionHtml}
+        `;
+
+        // Show/Hide dynamic sections based on content generated
+        // (Easter egg display is handled by the conditional generation above)
+        // stuffedEasterEgg.style.display = recipeData.isThick ? 'block' : 'none'; // Already handled by innerHTML creation
+        // chocolateRecommendation.style.display = 'block'; // Also handled
+
+        // Update language attributes ONLY for static text within recipe display section if needed
+        // updateLanguageContent(recipeDisplaySection); // Not strictly necessary if all text comes from T() helper
+
+        recipeDisplaySection.style.display = 'block';
+        // Scroll smoothly to the recipe
+        recipeDisplaySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // --- Language and Unit Switching ---
+    function updateLanguageContent(parentElement = document.body) {
+        const T_lang = langStrings[currentLanguage]; // Get strings for current lang
+
+        // Update elements with data attributes
+        const elements = parentElement.querySelectorAll('[data-en], [data-ar]');
+        elements.forEach(el => {
+            const key = currentLanguage; // 'en' or 'ar'
+            // Attempt to find the *specific* language key for the element
+            let translationKey = el.dataset.translationKey; // Assume a key like 'butterVarTitle' is stored
+            let translation = '';
+
+            if (translationKey && T_lang[translationKey]) {
+                translation = T_lang[translationKey];
+            } else if (el.dataset[key]) {
+                 // Fallback to using data-en/data-ar if translationKey is missing/invalid
+                 translation = el.dataset[key];
+            }
+
+
+            if (translation) {
+                 // Handle different element types
+                 if (el.tagName === 'INPUT' && el.placeholder) {
+                     el.placeholder = translation;
+                 } else if (el.tagName === 'BUTTON' || (el.tagName === 'OPTION' && el.parentElement.id === 'butter-unit')) {
+                     // Update button/option text content
+                      el.textContent = translation;
+                 }
+                  else {
+                     el.innerHTML = translation; // Use innerHTML for elements that might contain formatting
+                 }
+            }
+        });
+
+        // --- Explicitly update dynamic text NOT handled by data attributes ---
+
+        // 1. Toggle Buttons
+        langToggleButton.textContent = (currentLanguage === 'en') ? T_lang.toggleArabic : T_lang.toggleEnglish;
+        // Unit button text updated in updateUnitButtonText()
+
+        // 2. Butter Unit Select Options (using T helper)
+        if (parentElement === document.body || parentElement.contains(butterUnitSelect)) {
+            const butterUnitOptions = butterUnitSelect.options;
+            for (let i = 0; i < butterUnitOptions.length; i++) {
+                const option = butterUnitOptions[i];
+                const value = option.value; // 'grams' or 'cups'
+                option.textContent = T(value); // Use 'grams' or 'cups' key from langStrings
+            }
+        }
+
+        // 3. Butter Warning (If visible)
+        if (butterWarning.style.display !== 'none') {
+             butterWarning.textContent = T('butterWarning');
+        }
+
+        // 4. Cookie Option Titles/Descriptions (using T helper)
+         if (parentElement === document.body || parentElement.contains(cookieSelectionSection)) {
+             cookieOptions.forEach(option => {
+                 const type = option.dataset.cookieType; // 'thin', 'classic', 'thick'
+                 const titleEl = option.querySelector('h3');
+                 const descEl = option.querySelector('p');
+                 if (titleEl) titleEl.textContent = T(`${type}Title`);
+                 if (descEl) descEl.textContent = T(`${type}Desc`);
+             });
+         }
+
+
+        // Set page direction
+        htmlElement.setAttribute('dir', currentLanguage === 'ar' ? 'rtl' : 'ltr');
+        htmlElement.setAttribute('lang', currentLanguage); // Set lang attribute
+         // Add/Remove class for language-specific styling if needed
+         document.body.classList.toggle('lang-ar', currentLanguage === 'ar');
+         document.body.classList.toggle('lang-en', currentLanguage === 'en');
+
+    }
+
+    // Helper to get translation safely
+    function T(key) {
+         // Ensure langStrings and currentLanguage are valid before accessing
+         if (langStrings && langStrings[currentLanguage] && langStrings[currentLanguage][key]) {
+             return langStrings[currentLanguage][key];
+         }
+         console.warn(`Translation key "${key}" not found for language "${currentLanguage}". Falling back to key.`);
+         return key; // Fallback to key name if translation is missing
+    }
+
+
+    function toggleLanguage() {
+        currentLanguage = (currentLanguage === 'en') ? 'ar' : 'en';
+        // Adjust unit system based on language change
+        if (currentLanguage === 'ar') {
+            // In AR, we typically show grams primary, maybe cups secondary.
+            // Let's set the *preference* or *mode* if needed.
+            // For formatIngredient, AR mode shows grams + cups anyway.
+            // The unit toggle button might be hidden or disabled in AR.
+            currentUnitSystem = 'grams'; // Set a default state for AR
+        } else {
+            // In EN, default back to metric unless user changes it.
+            currentUnitSystem = 'metric'; // Reset EN to metric on lang switch
+        }
+        updateLanguageContent(); // Update all text based on the new language
+        updateUnitButtonText(); // Update unit button based on new lang/unit system state
+        // Re-display recipe if one is selected to apply new lang/units
+        if (selectedCookieType && baseButterGrams > 0) {
+            const scaledRecipe = calculateScaledRecipe(baseButterGrams, selectedCookieType);
+            displayRecipe(scaledRecipe);
+        }
+        // No need to update langToggleButton text here, updateLanguageContent does it.
+    }
+
+     function toggleUnits() {
+         if (currentLanguage === 'en') {
+             currentUnitSystem = (currentUnitSystem === 'metric') ? 'imperial' : 'metric';
+             // Update the display immediately
+             updateUnitButtonText();
+             if (selectedCookieType && baseButterGrams > 0) {
+                 const scaledRecipe = calculateScaledRecipe(baseButterGrams, selectedCookieType);
+                 displayRecipe(scaledRecipe);
+             }
+         } else {
+             // Currently, unit toggle doesn't change behavior in AR mode
+             // as formatIngredient shows both grams and cups anyway.
+             console.log("Unit toggle primarily affects English display (Metric/Imperial).");
+             // Optionally, you could implement a preference toggle for AR here later.
+         }
+     }
+
+    function updateUnitButtonText() {
+        const T_lang = langStrings[currentLanguage];
+        if (currentLanguage === 'en') {
+            unitToggleButton.textContent = T_lang[currentUnitSystem === 'metric' ? 'unitImperial' : 'unitMetric'];
+            unitToggleButton.style.display = 'inline-block'; // Show toggle for EN
+            // Hide butter unit selector ONLY if in Imperial mode for English
+             // butterUnitSelect.style.display = (currentUnitSystem === 'imperial') ? 'none' : 'inline-block';
+             // Let's always show the unit selector for butter input for clarity, regardless of EN unit system.
+             butterUnitSelect.style.display = 'inline-block';
+
+        } else { // Arabic
+             // Hide the Metric/Imperial toggle button in AR mode
+             unitToggleButton.style.display = 'none';
+             // Ensure butter unit select is visible for AR
+             butterUnitSelect.style.display = 'inline-block';
+        }
+
+         // We might want to default the butter input unit based on system, but allow override
+         // Example: If EN switches to imperial, maybe default butter select to 'cups'?
+         // if (currentLanguage === 'en' && currentUnitSystem === 'imperial') {
+         //     butterUnitSelect.value = 'cups';
+         // } else {
+         //     butterUnitSelect.value = 'grams'; // Default to grams otherwise
+         // }
+         // Let's keep the user's selection unless language changes.
+    }
+
+
+    // --- Event Listeners ---
+    startExperimentBtn.addEventListener('click', () => {
+        baseButterGrams = getBaseButterInGrams();
+        if (baseButterGrams > 0) {
+            cookieSelectionSection.style.display = 'block';
+            // Ensure cookie option text is correct for current language
+            updateLanguageContent(cookieSelectionSection);
+            cookieSelectionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Hide recipe until a type is chosen
+            recipeDisplaySection.style.display = 'none';
+            recipeContent.innerHTML = ''; // Clear previous recipe
+            // Reset selection visual
+            cookieOptions.forEach(opt => opt.classList.remove('selected'));
+            selectedCookieType = null;
+        } else {
+             // If butter amount is invalid, make sure warning is visible
+             if (parseFloat(butterAmountInput.value) <= 0 || isNaN(parseFloat(butterAmountInput.value))) {
+                   butterWarning.textContent = T('butterWarning'); // Use translated warning
+                   butterWarning.style.display = 'block';
+             }
+            butterAmountInput.focus(); // Focus the input if invalid
+        }
+    });
+
+    // Update button state when input changes
+    butterAmountInput.addEventListener('input', () => {
+        butterWarning.style.display = 'none'; // Hide warning on new input
+        // Basic check: enable/disable button based on if value > 0?
+        const amount = parseFloat(butterAmountInput.value);
+         startExperimentBtn.disabled = isNaN(amount) || amount <= 0;
+    });
+    butterUnitSelect.addEventListener('change', () => {
+        butterWarning.style.display = 'none'; // Hide warning on unit change
+    });
+
+    cookieOptions.forEach(option => {
+        option.addEventListener('click', (event) => {
+             // Prevent nested elements from triggering multiple times if needed
+             // event.stopPropagation();
+
+            if (baseButterGrams <= 0) {
+                // Prompt them to enter butter first
+                butterAmountInput.focus();
+                butterWarning.textContent = T('butterWarning'); // Re-use standard warning
+                butterWarning.style.display = 'block';
+                 // Scroll back up to the butter input smoothly
+                 butterAmountInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Update selection visual
+            cookieOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+
+            selectedCookieType = option.dataset.cookieType;
+            const scaledRecipe = calculateScaledRecipe(baseButterGrams, selectedCookieType);
+            displayRecipe(scaledRecipe);
+        });
+    });
+
+    langToggleButton.addEventListener('click', toggleLanguage);
+    unitToggleButton.addEventListener('click', toggleUnits);
+
+    // --- Initial Setup ---
+     startExperimentBtn.disabled = true; // Disable button initially until valid input
+    updateLanguageContent(); // Set initial language text
+    updateUnitButtonText(); // Set initial unit button text and visibility
+
+    // --- End of Functions and Listeners ---
+
+// }); // End DOMContentLoaded - Ensure this is the final closing bracket/parenthesis in your script
 
     // Display the recipe
     function displayRecipe(recipeData) {
