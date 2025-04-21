@@ -390,129 +390,125 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-       // Format ingredient amount based on unit system
-    function formatIngredient(grams, unitType, lang, unitSystem) {
-        const T = langStrings[lang]; // Translation helper
-        let outputText = ''; // Use a single output variable
+// Format ingredient amount based on unit system
+function formatIngredient(grams, unitType, lang, unitSystem) {
+    const T = langStrings[lang]; // Translation helper
+    let outputText = ''; // Use a single output variable
 
-        // Special case for Eggs - Always show count
-        if (unitType === 'egg') {
-            let numEggs = Math.round(grams / GRAMS_PER_LARGE_EGG);
-            if (numEggs < 1) numEggs = 1; // Ensure at least 1 egg if grams > 0
-            // Use singular or plural from langStrings
-            const eggUnitText = (numEggs === 1) ? T.egg : T.eggs;
-            outputText = `${numEggs} ${eggUnitText}`;
-            // Return immediately for eggs, bypassing other unit logic
-            return outputText;
-        }
-
-        // --- Proceed with other unit types ---
-        let metricText = `${Math.round(grams)} g`;
-        let imperialText = '';
-        let cupsText = ''; // For Arabic display (if applicable)
-
-        // --- Imperial Calculation (Approximate) ---
-        let imperialAmount = '';
-        let imperialUnit = '';
-        switch (unitType) {
-            case 'butter':
-            case 'sugar': // Granulated and Brown are similar enough for approx cups
-            case 'chocolate':
-                const cupEq = unitType === 'butter' ? GRAMS_PER_CUP_BUTTER : (unitType === 'sugar' ? GRAMS_PER_CUP_GRAN_SUGAR : GRAMS_PER_CUP_CHOC_CHIPS);
-                imperialAmount = (grams / cupEq).toFixed(2);
-                // Remove trailing ".00"
-                imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
-                imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups; // Use translations for cup/cups
-                cupsText = `${imperialAmount} ${imperialUnit}`; // For potential AR display
-                break;
-            case 'flour':
-                imperialAmount = (grams / GRAMS_PER_CUP_FLOUR).toFixed(2);
-                imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
-                imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups;
-                cupsText = `${imperialAmount} ${imperialUnit}`;
-                break;
-            case 'salt':
-            case 'bakingSoda':
-            case 'bakingPowder':
-            case 'vanilla':
-            case 'milkPowder': // Added milk powder here for tsp/tbsp logic
-            case 'prepWater': // Added prep water here for tsp/tbsp logic
-                let tspEq = 1; // Default multiplier
-                let unitNameSingular = 'tsp'; // Default unit
-                let unitNamePlural = 'tsps';
-                let useTbsp = false;
-
-                if (unitType === 'salt') tspEq = GRAMS_PER_TSP_SALT;
-                else if (unitType === 'bakingSoda') tspEq = GRAMS_PER_TSP_BAKING_SODA;
-                else if (unitType === 'bakingPowder') tspEq = GRAMS_PER_TSP_BAKING_POWDER;
-                else if (unitType === 'vanilla') tspEq = GRAMS_PER_TSP_VANILLA;
-                else if (unitType === 'prepWater') tspEq = 4.9; // Approx 5g water/tsp
-                else if (unitType === 'milkPowder') {
-                    tspEq = GRAMS_PER_TBSP_MILK_POWDER / 3; // Convert Tbsp base to Tsp base
-                    unitNameSingular = 'Tbsp'; // Prefer Tbsp display
-                    unitNamePlural = 'Tbsp';
-                    useTbsp = true;
-                }
-
-                let baseAmount = grams / tspEq; // Amount in basic unit (tsp)
-
-                 // Convert to Tbsp if preferred and applicable
-                if (useTbsp && baseAmount >= 2.9) { // If close to 1 Tbsp or more
-                     baseAmount = baseAmount / 3; // Convert tsp amount to tbsp amount
-                     unitNameSingular = 'Tbsp';
-                     unitNamePlural = 'Tbsp';
-                 } else { // Otherwise stick to tsp
-                     unitNameSingular = 'tsp';
-                     unitNamePlural = 'tsps';
-                 }
-
-
-                if (baseAmount < 0.1) baseAmount = 0; // Avoid tiny fractions
-
-                if (baseAmount < 1 && baseAmount > 0) { // Handle fractions
-                    if (baseAmount >= 0.875) imperialAmount = '⅞';
-                    else if (baseAmount >= 0.7) imperialAmount = '¾';
-                    else if (baseAmount >= 0.6) imperialAmount = '⅔';
-                    else if (baseAmount >= 0.4) imperialAmount = '½';
-                    else if (baseAmount >= 0.3) imperialAmount = '⅓';
-                    else if (baseAmount >= 0.2) imperialAmount = '¼';
-                    else if (baseAmount >= 0.1) imperialAmount = '⅛';
-                    else imperialAmount = 'pinch'; // Only if really small
-                    imperialUnit = unitNameSingular; // Use singular for fractions
-                } else {
-                    // Format whole/decimal numbers (e.g., 1, 1.5, 2)
-                     imperialAmount = parseFloat(baseAmount.toFixed(1)).toString(); // toFixed(1) then parse and back to string removes trailing .0
-                    imperialUnit = (baseAmount > 0 && baseAmount <= 1) ? unitNameSingular : unitNamePlural;
-                }
-                if (imperialAmount === 'pinch') imperialUnit = '';
-                 // Special label for prep water
-                 if(unitType === 'prepWater') imperialUnit += ' water/milk';
-                break;
-             // case 'egg': Handled above and returns immediately
-             //    break;
-            default: // Fallback for unknown types
-                imperialAmount = Math.round(grams);
-                imperialUnit = 'g';
-        }
-         // Avoid displaying unit if amount is 0
-         if (parseFloat(imperialAmount) === 0) {
-             imperialText = `0 ${imperialUnit}`; // Or just "0"?
-         } else {
-             imperialText = `${imperialAmount} ${imperialUnit}`;
-         }
-
-        // --- Return based on language and unit system ---
-        if (lang === 'en') {
-             outputText = (unitSystem === 'metric') ? metricText : imperialText.trim(); // Trim potential extra space
-        } else { // Arabic
-            // Always show grams, optionally show cups if applicable for certain types
-            outputText = `<span class="unit-g">${metricText}</span>`;
-            if (cupsText && (unitType === 'butter' || unitType === 'sugar' || unitType === 'flour' || unitType === 'chocolate')) {
-                 outputText += ` <span class="unit-cups">(${cupsText})</span>`;
-            }
-        }
-         return outputText;
+    // Special case for Eggs - Show decimal count and total grams
+    if (unitType === 'egg') {
+        let numEggs = grams / GRAMS_PER_LARGE_EGG;
+        if (numEggs < 0.5) numEggs = 1; // Ensure at least 1 egg if grams > 0
+        const eggText = numEggs.toFixed(1) + " " + (numEggs <= 1 ? T.egg : T.eggs);
+        const totalGrams = Math.round(grams);
+        outputText = `${eggText} (${totalGrams}g)`;
+        return outputText;
     }
+
+    // --- Proceed with other unit types ---
+    let metricText = `${Math.round(grams)} g`;
+    let imperialText = '';
+    let cupsText = ''; // For Arabic display (if applicable)
+
+    // --- Imperial Calculation (Approximate) ---
+    let imperialAmount = '';
+    let imperialUnit = '';
+    switch (unitType) {
+        case 'butter':
+        case 'sugar': // Granulated and Brown are similar enough for approx cups
+        case 'chocolate':
+            const cupEq = unitType === 'butter' ? GRAMS_PER_CUP_BUTTER : (unitType === 'sugar' ? GRAMS_PER_CUP_GRAN_SUGAR : GRAMS_PER_CUP_CHOC_CHIPS);
+            imperialAmount = (grams / cupEq).toFixed(2);
+            // Remove trailing ".00"
+            imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
+            imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups; // Use translations for cup/cups
+            cupsText = `${imperialAmount} ${imperialUnit}`; // For potential AR display
+            break;
+        case 'flour':
+            imperialAmount = (grams / GRAMS_PER_CUP_FLOUR).toFixed(2);
+            imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
+            imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups;
+            cupsText = `${imperialAmount} ${imperialUnit}`;
+            break;
+        case 'salt':
+        case 'bakingSoda':
+        case 'bakingPowder':
+        case 'vanilla':
+        case 'milkPowder': // Added milk powder here for tsp/tbsp logic
+        case 'prepWater': // Added prep water here for tsp/tbsp logic
+            let tspEq = 1; // Default multiplier
+            let unitNameSingular = 'tsp'; // Default unit
+            let unitNamePlural = 'tsps';
+            let useTbsp = false;
+
+            if (unitType === 'salt') tspEq = GRAMS_PER_TSP_SALT;
+            else if (unitType === 'bakingSoda') tspEq = GRAMS_PER_TSP_BAKING_SODA;
+            else if (unitType === 'bakingPowder') tspEq = GRAMS_PER_TSP_BAKING_POWDER;
+            else if (unitType === 'vanilla') tspEq = GRAMS_PER_TSP_VANILLA;
+            else if (unitType === 'prepWater') tspEq = 4.9; // Approx 5g water/tsp
+            else if (unitType === 'milkPowder') {
+                tspEq = GRAMS_PER_TBSP_MILK_POWDER / 3; // Convert Tbsp base to Tsp base
+                unitNameSingular = 'Tbsp'; // Prefer Tbsp display
+                unitNamePlural = 'Tbsp';
+                useTbsp = true;
+            }
+
+            let baseAmount = grams / tspEq; // Amount in basic unit (tsp)
+
+            // Convert to Tbsp if preferred and applicable
+            if (useTbsp && baseAmount >= 2.9) { // If close to 1 Tbsp or more
+                baseAmount = baseAmount / 3; // Convert tsp amount to tbsp amount
+                unitNameSingular = 'Tbsp';
+                unitNamePlural = 'Tbsp';
+            } else { // Otherwise stick to tsp
+                unitNameSingular = 'tsp';
+                unitNamePlural = 'tsps';
+            }
+
+            if (baseAmount < 0.1) baseAmount = 0; // Avoid tiny fractions
+
+            if (baseAmount < 1 && baseAmount > 0) { // Handle fractions
+                if (baseAmount >= 0.875) imperialAmount = '⅞';
+                else if (baseAmount >= 0.7) imperialAmount = '¾';
+                else if (baseAmount >= 0.6) imperialAmount = '⅔';
+                else if (baseAmount >= 0.4) imperialAmount = '½';
+                else if (baseAmount >= 0.3) imperialAmount = '⅓';
+                else if (baseAmount >= 0.2) imperialAmount = '¼';
+                else if (baseAmount >= 0.1) imperialAmount = '⅛';
+                else imperialAmount = 'pinch'; // Only if really small
+                imperialUnit = unitNameSingular; // Use singular for fractions
+            } else {
+                // Format whole/decimal numbers (e.g., 1, 1.5, 2)
+                imperialAmount = parseFloat(baseAmount.toFixed(1)).toString(); // toFixed(1) then parse and back to string removes trailing .0
+                imperialUnit = (baseAmount > 0 && baseAmount <= 1) ? unitNameSingular : unitNamePlural;
+            }
+            if (imperialAmount === 'pinch') imperialUnit = '';
+            // Special label for prep water
+            if (unitType === 'prepWater') imperialUnit += ' water/milk';
+            break;
+        default: // Fallback for unknown types
+            imperialAmount = Math.round(grams);
+            imperialUnit = 'g';
+    }
+    // Avoid displaying unit if amount is 0
+    if (parseFloat(imperialAmount) === 0) {
+        imperialText = `0 ${imperialUnit}`; // Or just "0"?
+    } else {
+        imperialText = `${imperialAmount} ${imperialUnit}`;
+    }
+
+    // --- Return based on language and unit system ---
+    if (lang === 'en') {
+        outputText = (unitSystem === 'metric') ? metricText : imperialText.trim(); // Trim potential extra space
+    } else { // Arabic
+        // Always show grams, optionally show cups if applicable for certain types
+        outputText = `<span class="unit-g">${metricText}</span>`;
+        if (cupsText && (unitType === 'butter' || unitType === 'sugar' || unitType === 'flour' || unitType === 'chocolate')) {
+            outputText += ` <span class="unit-cups">(${cupsText})</span>`;
+        }
+    }
+    return outputText;
+}
 
     // Display the recipe
     function displayRecipe(recipeData) {
