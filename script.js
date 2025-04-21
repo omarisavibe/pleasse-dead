@@ -393,96 +393,176 @@ document.addEventListener('DOMContentLoaded', () => {
        // Format ingredient amount based on unit system
     // --- Functions --- (Keep any functions above this line)
 
-    // Convert input butter to grams
-    function getBaseButterInGrams() {
-        const amount = parseFloat(butterAmountInput.value);
-        const unit = butterUnitSelect.value;
-        if (isNaN(amount) || amount <= 0) return 0;
+   // Format ingredient amount based on unit system
+   function formatIngredient(grams, unitType, lang, unitSystem) {
+        const T = langStrings[lang]; // Translation helper
+        let outputText = ''; // Use a single output variable
 
-        let grams = (unit === 'cups') ? amount * GRAMS_PER_CUP_BUTTER : amount;
+        // --- Special case for Eggs ---
+        // Calculate the number of eggs, rounding to the nearest half, minimum 1 if any needed.
+        if (unitType === 'egg') {
+            const rawEggs = grams / GRAMS_PER_LARGE_EGG;
+            let numEggs = 0; // Default to 0
 
-        // Basic validation (e.g., minimum 100g)
-        if (grams < 100) {
-            butterWarning.style.display = 'block';
-            butterWarning.textContent = langStrings[currentLanguage].butterWarning;
-            return 0;
-        } else {
-            butterWarning.style.display = 'none';
-            return grams;
-        }
-    }
-
-    // Calculate scaled recipe
-    function calculateScaledRecipe(butterInGrams, cookieType) {
-        const base = baseRecipes[cookieType];
-        if (!base) return null;
-
-        const scalingFactor = butterInGrams / base.baseButter;
-        const scaledIngredients = {};
-
-        for (const key in base.ingredients) {
-            scaledIngredients[key] = {
-                grams: base.ingredients[key][0] * scalingFactor,
-                unitType: base.ingredients[key][1] // Keep track of type for conversion
-            };
-        }
-
-        let yieldValue;
-        if (cookieType === 'thick') {
-            // Calculate yield based on total dough weight and target cookie weight
-            let totalDoughWeight = butterInGrams; // Start with butter
-            for (const key in scaledIngredients) {
-                 // Add scaled ingredient weights, EXCLUDING the base butter we already added
-                 // NOTE: This assumes 'unsaltedButter' isn't listed explicitly in scaledIngredients
-                 // If it IS, we need to avoid double-counting. Let's refine the total dough calculation.
-                 // A safer way: Sum *all* ingredients *including* base butter.
-                 // Let's recalculate totalDoughWeight based on scaled ingredients + input butter
-                 totalDoughWeight = butterInGrams; // User input butter
-                 for (const key in scaledIngredients) {
-                     // Add all *other* ingredients (sugar, flour, eggs etc.)
-                     // We need a way to ensure we don't add the scaled butter amount if it exists
-                     // Let's assume scaledIngredients doesn't contain 'butter' as a key
-                     totalDoughWeight += scaledIngredients[key].grams;
-                 }
-                 // If 'unsaltedButter' IS a key in ingredients (like for tracking hydration water maybe),
-                 // then the sum should just be over scaledIngredients and not add butterInGrams separately.
-                 // Let's check the structure. It seems 'baseButter' is separate. OK.
-                 // So, summing scaledIngredients should be correct IF 'prepWater' isn't counted as 'butter'. It isn't. Phew.
-                 // BUT wait, the scaledIngredients *are* based on the base recipe which *includes* butter.
-                 // The scaling factor is applied to everything.
-                 // So, the total dough weight IS the sum of all scaledIngredients grams.
-                 totalDoughWeight = 0;
-                 for (const key in scaledIngredients) {
-                    totalDoughWeight += scaledIngredients[key].grams;
-                 }
-                 // We also need to add the base butter itself to the dough weight!
-                 totalDoughWeight += butterInGrams;
-
-                 // Let's recalculate yield based on this total dough weight
-                // console.log("Total Dough Weight (Thick):", totalDoughWeight);
-                // console.log("Base Cookie Size Grams:", base.cookieSizeGrams);
-                yieldValue = Math.max(1, Math.round(totalDoughWeight / base.cookieSizeGrams)); // Ensure at least 1
-                // console.log("Calculated Yield (Thick):", yieldValue);
-
+            if (rawEggs <= 0) {
+                numEggs = 0; // No eggs needed if grams are zero or less
             } else {
-                 // Calculate yield based on scaling factor for classic/thin
-                 yieldValue = Math.max(1, Math.round(base.yieldPerBase * scalingFactor)); // Ensure at least 1
+                // Calculate eggs rounded to the nearest 0.5
+                numEggs = Math.round(rawEggs * 2) / 2;
+
+                // If rounding results in less than 1 (i.e., 0 or 0.5),
+                // but we need *some* egg (rawEggs > 0), default to 1 minimum.
+                if (numEggs < 1) {
+                    numEggs = 1;
+                }
             }
 
+            // Format the output text
+            // We use the general "Large Eggs" label because singular/plural gets tricky with decimals.
+            const eggUnitText = T.largeEggs; // e.g., "Large Eggs" or "بيض كبير"
 
-        } else {
-            yieldValue = Math.max(1, Math.round(base.yieldPerBase * scalingFactor)); // Ensure at least 1
+            if (numEggs === 0) {
+                 outputText = `0 ${eggUnitText}`;
+            } else {
+                 // Display the calculated number (e.g., "1", "1.5", "2")
+                 outputText = `${numEggs} ${eggUnitText}`;
+            }
+
+            // Return immediately for eggs, bypassing other unit logic
+            return outputText;
         }
 
+        // --- Proceed with other unit types ---
+        let metricText = `${Math.round(grams)} g`;
+        let imperialText = '';
+        let cupsText = ''; // For Arabic display (if applicable)
 
-        return {
-            ingredients: scaledIngredients,
-            yield: yieldValue,
-            notesKey: base.notes,
-            stepsKey: base.steps,
-            prepTechKeys: base.prepTech,
-            isThick: cookieType === 'thick' // Flag for easter egg
-        };
+        // --- Imperial Calculation (Approximate) ---
+        let imperialAmount = '';
+        let imperialUnit = '';
+        switch (unitType) {
+            case 'butter':
+                // Use specific cup conversion for butter
+                imperialAmount = (grams / GRAMS_PER_CUP_BUTTER).toFixed(2);
+                // Remove trailing ".00"
+                imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
+                imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups;
+                cupsText = `${imperialAmount} ${imperialUnit}`;
+                break;
+            case 'sugar': // Group sugar types for cup conversion
+                // Use an average or granulated sugar for approximation
+                const cupEqSugar = GRAMS_PER_CUP_GRAN_SUGAR; // Or average if brown/granulated differ significantly in volume
+                imperialAmount = (grams / cupEqSugar).toFixed(2);
+                imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
+                imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups;
+                cupsText = `${imperialAmount} ${imperialUnit}`;
+                break;
+            case 'chocolate':
+                 const cupEqChoc = GRAMS_PER_CUP_CHOC_CHIPS;
+                 imperialAmount = (grams / cupEqChoc).toFixed(2);
+                 imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
+                 imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups;
+                 cupsText = `${imperialAmount} ${imperialUnit}`;
+                 break;
+            case 'flour':
+                imperialAmount = (grams / GRAMS_PER_CUP_FLOUR).toFixed(2);
+                imperialAmount = imperialAmount.endsWith('.00') ? imperialAmount.slice(0, -3) : imperialAmount;
+                imperialUnit = (parseFloat(imperialAmount) === 1) ? T.cup : T.cups;
+                cupsText = `${imperialAmount} ${imperialUnit}`;
+                break;
+            case 'salt':
+            case 'bakingSoda':
+            case 'bakingPowder':
+            case 'vanilla':
+            case 'milkPowder':
+            case 'prepWater': // Added prep water here for tsp/tbsp logic
+                let tspEq = 1; // Default multiplier
+                let unitNameSingular = 'tsp'; // Default unit
+                let unitNamePlural = 'tsps';
+                let useTbsp = false;
+                let specificLabel = ''; // For water/milk
+
+                if (unitType === 'salt') tspEq = GRAMS_PER_TSP_SALT;
+                else if (unitType === 'bakingSoda') tspEq = GRAMS_PER_TSP_BAKING_SODA;
+                else if (unitType === 'bakingPowder') tspEq = GRAMS_PER_TSP_BAKING_POWDER;
+                else if (unitType === 'vanilla') tspEq = GRAMS_PER_TSP_VANILLA;
+                else if (unitType === 'prepWater') {
+                    tspEq = 4.9; // Approx 5g water/tsp
+                    specificLabel = ' ' + T.prepWater.split(' ')[0]; // Add "Water/Milk" or "ماء/حليب" etc.
+                }
+                else if (unitType === 'milkPowder') {
+                    tspEq = GRAMS_PER_TBSP_MILK_POWDER / 3; // Convert Tbsp base to Tsp base
+                    // Decide if Tbsp display is preferred based on amount
+                    useTbsp = true; // Initially assume we might use Tbsp
+                }
+
+                let baseAmount = grams / tspEq; // Amount in basic unit (tsp)
+
+                 // Convert to Tbsp if preferred (milk powder) and amount is suitable
+                if (useTbsp && unitType === 'milkPowder' && baseAmount >= 2.5) { // Threshold to switch to Tbsp (e.g., >= 0.8 Tbsp)
+                     baseAmount = baseAmount / 3; // Convert tsp amount to tbsp amount
+                     unitNameSingular = 'Tbsp';
+                     unitNamePlural = 'Tbsp';
+                 } else { // Otherwise stick to tsp
+                     unitNameSingular = 'tsp';
+                     unitNamePlural = 'tsps';
+                     useTbsp = false; // Ensure we are using tsp units
+                 }
+
+
+                if (baseAmount < 0.1 && baseAmount > 0) imperialAmount = 'pinch'; // Only if really small and > 0
+                else if (baseAmount < 1 && baseAmount > 0) { // Handle fractions
+                    if (baseAmount >= 0.875) imperialAmount = '⅞'; // ~7/8
+                    else if (baseAmount >= 0.7) imperialAmount = '¾';  // ~3/4
+                    else if (baseAmount >= 0.6) imperialAmount = '⅔';  // ~2/3
+                    else if (baseAmount >= 0.45) imperialAmount = '½'; // ~1/2
+                    else if (baseAmount >= 0.3) imperialAmount = '⅓';  // ~1/3
+                    else if (baseAmount >= 0.2) imperialAmount = '¼';  // ~1/4
+                    else if (baseAmount >= 0.1) imperialAmount = '⅛';  // ~1/8
+                    else imperialAmount = 'pinch'; // Fallback if very tiny
+                    imperialUnit = unitNameSingular; // Use singular for fractions
+                } else {
+                    // Format whole/decimal numbers (e.g., 1, 1.5, 2) rounded to one decimal place
+                     imperialAmount = parseFloat(baseAmount.toFixed(1)).toString(); // toFixed(1) then parse and back to string removes trailing .0
+                     // Determine singular/plural based on the *numerical value* after potential rounding
+                     const numericAmount = parseFloat(imperialAmount);
+                    imperialUnit = (numericAmount > 0 && numericAmount <= 1) ? unitNameSingular : unitNamePlural;
+                }
+
+                // Adjust unit display
+                if (imperialAmount === 'pinch' || parseFloat(imperialAmount) === 0) {
+                     imperialUnit = ''; // No unit for pinch or zero
+                     if (parseFloat(imperialAmount) === 0) imperialAmount = '0';
+                 }
+                 imperialUnit += specificLabel; // Add 'water/milk' if applicable
+
+                break;
+            default: // Fallback for unknown types
+                imperialAmount = Math.round(grams);
+                imperialUnit = 'g'; // Default to grams if type unknown for imperial
+        }
+
+         // Construct imperial text, avoiding unit if amount is 0 or pinch
+         if (imperialAmount === '0' || imperialAmount === 'pinch') {
+             imperialText = `${imperialAmount}`;
+         } else {
+              imperialText = `${imperialAmount} ${imperialUnit}`;
+         }
+
+
+        // --- Return based on language and unit system ---
+        if (lang === 'en') {
+             outputText = (unitSystem === 'metric') ? metricText : imperialText.trim(); // Trim potential extra space
+        } else { // Arabic
+            // Always show grams, optionally show cups if applicable for certain types
+            outputText = `<span class="unit-g">${metricText}</span>`;
+            if (cupsText && (unitType === 'butter' || unitType === 'sugar' || unitType === 'flour' || unitType === 'chocolate')) {
+                 // Use the 'cups' unit preference toggle here if implemented for AR
+                 // For now, always show if available
+                 outputText += ` <span class="unit-cups">(${cupsText})</span>`;
+            }
+        }
+         return outputText;
     }
 
 
