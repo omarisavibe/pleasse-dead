@@ -218,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
             footerText: 'Built with science, butter, and a little bit of code.'
         },
         ar: {
-ar: {
   // Toggles & Units
   toggleArabic: 'عربي',
   toggleEnglish: 'English',
